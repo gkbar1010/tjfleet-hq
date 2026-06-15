@@ -1,0 +1,199 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  ADMIN
+  SECRETARY
+  VIEWER
+}
+
+enum VehicleStatus {
+  AVAILABLE
+  BOOKED
+  IN_MAINTENANCE
+  NEEDS_CLEANING
+  UNAVAILABLE
+  SOLD_REMOVED
+}
+
+enum ListingStatus {
+  LISTED
+  NOT_LISTED
+  PAUSED
+  UNKNOWN
+}
+
+enum BookingStatus {
+  INQUIRY
+  PENDING
+  CONFIRMED
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+enum BookingSource {
+  SUPERIOR_WEBSITE
+  EXOTIC_DRIVE_WEBSITE
+  TURO
+  INSTAGRAM
+  PHONE_CALL
+  REFERRAL
+  REPEAT_CUSTOMER
+  MANUAL_ENTRY
+  OTHER
+}
+
+enum LeadBrand {
+  TJ
+  SUPERIOR_MOTOR_CLUB
+  EXOTIC_DRIVE
+  TURO
+}
+
+enum FileCategory {
+  VEHICLE_PHOTO
+  VEHICLE_DOCUMENT
+  CUSTOMER_LICENSE
+  CUSTOMER_INSURANCE
+  BOOKING_BEFORE_PHOTO
+  BOOKING_AFTER_PHOTO
+  BOOKING_DOCUMENT
+  MISCELLANEOUS
+}
+
+model User {
+  id        String   @id @default(uuid()) @db.Uuid
+  email     String   @unique
+  fullName  String   @map("full_name")
+  role      UserRole @default(VIEWER)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  bookingsCreated Booking[] @relation("BookingCreator")
+  filesUploaded   File[]    @relation("FileUploader")
+  notes           Note[]    @relation("NoteCreator")
+
+  @@map("users")
+}
+
+model Customer {
+  id               String   @id @default(uuid()) @db.Uuid
+  fullName         String   @map("full_name")
+  phone            String?
+  email            String?
+  instagram        String?
+  notes            String?
+  tags             String[] @default([])
+  licenseFileUrl   String?  @map("license_file_url")
+  insuranceFileUrl String?  @map("insurance_file_url")
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  bookings      Booking[]
+  files         File[]
+  customerNotes Note[]
+
+  @@map("customers")
+}
+
+model Vehicle {
+  id                    String        @id @default(uuid()) @db.Uuid
+  displayName           String        @map("display_name")
+  year                  Int?
+  make                  String?
+  model                 String?
+  trim                  String?
+  exteriorColor         String?       @map("exterior_color")
+  interiorColor         String?       @map("interior_color")
+  plate                 String?
+  vin                   String?
+  mileage               Int?
+  status                VehicleStatus @default(AVAILABLE)
+  superiorListingStatus ListingStatus @default(UNKNOWN) @map("superior_listing_status")
+  exoticDriveListingStatus ListingStatus @default(UNKNOWN) @map("exotic_drive_listing_status")
+  turoListingStatus     ListingStatus @default(UNKNOWN) @map("turo_listing_status")
+  notes                 String?
+  createdAt             DateTime      @default(now()) @map("created_at")
+  updatedAt             DateTime      @updatedAt @map("updated_at")
+
+  bookings     Booking[]
+  files        File[]
+  vehicleNotes Note[]
+
+  @@map("vehicles")
+}
+
+model Booking {
+  id                    String        @id @default(uuid()) @db.Uuid
+  customerId            String        @map("customer_id") @db.Uuid
+  vehicleId             String        @map("vehicle_id") @db.Uuid
+  source                BookingSource @default(MANUAL_ENTRY)
+  leadBrand             LeadBrand?    @map("lead_brand")
+  externalReservationId String?       @map("external_reservation_id")
+  status                BookingStatus @default(INQUIRY)
+  pickupDatetime        DateTime      @map("pickup_datetime")
+  dropoffDatetime       DateTime      @map("dropoff_datetime")
+  pickupLocation        String?       @map("pickup_location")
+  dropoffLocation       String?       @map("dropoff_location")
+  assignedStaff         String?       @map("assigned_staff")
+  mileageOut            Int?          @map("mileage_out")
+  mileageIn             Int?          @map("mileage_in")
+  fuelLevelOut          String?       @map("fuel_level_out")
+  fuelLevelIn           String?       @map("fuel_level_in")
+  notes                 String?
+  createdById           String        @map("created_by") @db.Uuid
+  createdAt             DateTime      @default(now()) @map("created_at")
+  updatedAt             DateTime      @updatedAt @map("updated_at")
+
+  customer     Customer @relation(fields: [customerId], references: [id])
+  vehicle      Vehicle  @relation(fields: [vehicleId], references: [id])
+  createdBy    User     @relation("BookingCreator", fields: [createdById], references: [id])
+  files        File[]
+  bookingNotes Note[]
+
+  @@map("bookings")
+}
+
+model File {
+  id           String       @id @default(uuid()) @db.Uuid
+  fileUrl      String       @map("file_url")
+  fileName     String?      @map("file_name")
+  fileType     String?      @map("file_type")
+  category     FileCategory
+  customerId   String?      @map("customer_id") @db.Uuid
+  vehicleId    String?      @map("vehicle_id") @db.Uuid
+  bookingId    String?      @map("booking_id") @db.Uuid
+  uploadedById String       @map("uploaded_by") @db.Uuid
+  createdAt    DateTime     @default(now()) @map("created_at")
+
+  customer   Customer? @relation(fields: [customerId], references: [id])
+  vehicle    Vehicle?  @relation(fields: [vehicleId], references: [id])
+  booking    Booking?  @relation(fields: [bookingId], references: [id])
+  uploadedBy User      @relation("FileUploader", fields: [uploadedById], references: [id])
+
+  @@map("files")
+}
+
+model Note {
+  id          String   @id @default(uuid()) @db.Uuid
+  body        String
+  customerId  String?  @map("customer_id") @db.Uuid
+  vehicleId   String?  @map("vehicle_id") @db.Uuid
+  bookingId   String?  @map("booking_id") @db.Uuid
+  createdById String   @map("created_by") @db.Uuid
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  customer  Customer? @relation(fields: [customerId], references: [id])
+  vehicle   Vehicle?  @relation(fields: [vehicleId], references: [id])
+  booking   Booking?  @relation(fields: [bookingId], references: [id])
+  createdBy User      @relation("NoteCreator", fields: [createdById], references: [id])
+
+  @@map("notes")
+}
