@@ -45,7 +45,7 @@ export function UsersPageClient({ users, currentUserId }: UsersPageClientProps) 
         <p className="text-sm text-[#888]">{users.length} user{users.length !== 1 ? 's' : ''}</p>
         <button
           onClick={() => { setShowInvite(!showInvite); clearMessages() }}
-          className="bg-[#DC0000] text-white px-4 py-2 rounded font-medium hover:bg-[#FF1A1A] text-sm"
+          className="bg-[#E10600] text-white px-4 py-2 rounded font-medium hover:bg-[#FF2D2D] text-sm"
         >
           {showInvite ? 'Cancel' : 'Invite User'}
         </button>
@@ -273,7 +273,7 @@ function InviteForm({
         <button
           type="submit"
           disabled={isPending}
-          className="bg-[#DC0000] text-white px-4 py-2 rounded font-medium hover:bg-[#FF1A1A] text-sm disabled:opacity-50"
+          className="bg-[#E10600] text-white px-4 py-2 rounded font-medium hover:bg-[#FF2D2D] text-sm disabled:opacity-50"
         >
           {isPending ? 'Inviting...' : 'Send Invite'}
         </button>

@@ -145,7 +145,7 @@ export default function VehicleDetailClient({ vehicle }: { vehicle: Vehicle }) {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setEditing(true)}
-            className="bg-[#DC0000] text-white px-4 py-2 rounded font-medium hover:bg-[#FF1A1A] transition-colors"
+            className="bg-[#E10600] text-white px-4 py-2 rounded font-medium hover:bg-[#FF2D2D] transition-colors"
           >
             Edit
           </button>

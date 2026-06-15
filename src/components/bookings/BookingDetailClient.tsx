@@ -142,7 +142,7 @@ export default function BookingDetailClient({
         <div className="flex gap-2">
           <button
             onClick={() => setEditing(true)}
-            className="bg-[#DC0000] text-white px-4 py-2 rounded font-medium hover:bg-[#FF1A1A] text-sm transition-colors"
+            className="bg-[#E10600] text-white px-4 py-2 rounded font-medium hover:bg-[#FF2D2D] text-sm transition-colors"
           >
             Edit
           </button>
@@ -171,7 +171,7 @@ export default function BookingDetailClient({
                 key={s}
                 onClick={() => handleStatusChange(s)}
                 disabled={statusLoading}
-                className="bg-[#DC0000] text-white px-4 py-2 rounded font-medium hover:bg-[#FF1A1A] text-sm disabled:opacity-50 transition-colors"
+                className="bg-[#E10600] text-white px-4 py-2 rounded font-medium hover:bg-[#FF2D2D] text-sm disabled:opacity-50 transition-colors"
               >
                 {statusLoading ? '...' : `Mark as ${s}`}
               </button>

@@ -56,17 +56,17 @@ function StatCard({
   accent?: boolean
 }) {
   const content = (
-    <div className={`bg-[#111] border rounded-lg p-4 transition-all ${
+    <div className={`bg-[#0e0e0e] border rounded-lg p-4 transition-all ${
       accent
-        ? 'border-[#DC0000]/30 hover:border-[#DC0000]/50 hover:shadow-[0_0_15px_rgba(220,0,0,0.1)]'
+        ? 'border-[#E10600]/30 hover:border-[#E10600]/50 hover:shadow-[0_0_20px_rgba(225,6,0,0.12)]'
         : 'border-[#1a1a1a] hover:border-[#2a2a2a]'
     }`}>
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-3xl font-bold text-white">{value}</p>
-          <p className="text-xs text-[#666] mt-1 tracking-wide uppercase">{label}</p>
+          <p className="text-3xl font-bold text-white" style={{ fontFamily: 'Orbitron, monospace' }}>{value}</p>
+          <p className="text-[10px] text-[#555] mt-1.5 tracking-[0.12em] uppercase" style={{ fontFamily: 'Orbitron, monospace' }}>{label}</p>
         </div>
-        <Icon size={20} className={accent ? 'text-[#DC0000]/60' : 'text-[#333]'} />
+        <Icon size={18} className={accent ? 'text-[#E10600]/50' : 'text-[#252525]'} />
       </div>
     </div>
   )
@@ -94,8 +94,13 @@ export default function DashboardClient({ data }: { data: DashboardData }) {
     <div className="space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-white tracking-wide">Dashboard</h1>
-        <div className="h-[2px] w-12 bg-[#DC0000] mt-2" />
+        <h1 className="text-xl font-bold text-white tracking-[0.15em] uppercase" style={{ fontFamily: 'Orbitron, monospace' }}>
+          Cruscotto
+        </h1>
+        <div className="flex items-center gap-2 mt-2">
+          <div className="h-[2px] w-10 bg-[#E10600]" style={{ boxShadow: '0 0 6px rgba(225,6,0,0.4)' }} />
+          <span className="text-[9px] text-[#444] tracking-[0.2em] uppercase" style={{ fontFamily: 'Orbitron, monospace' }}>Dashboard</span>
+        </div>
       </div>
 
       {/* Stat cards */}
@@ -152,7 +157,7 @@ export default function DashboardClient({ data }: { data: DashboardData }) {
         <div>
           <h2 className="text-sm font-medium text-[#888] mb-3 tracking-[0.1em] uppercase">
             Today&apos;s Pickups
-            <span className="text-[#DC0000] ml-2">{data.todaysPickups.length}</span>
+            <span className="text-[#E10600] ml-2">{data.todaysPickups.length}</span>
           </h2>
           {data.todaysPickups.length === 0 ? (
             <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-4 text-sm text-[#444]">
@@ -164,7 +169,7 @@ export default function DashboardClient({ data }: { data: DashboardData }) {
                 <Link
                   key={b.id}
                   href={`/bookings/${b.id}`}
-                  className="flex items-center justify-between bg-[#111] border border-[#1a1a1a] rounded-lg p-3 hover:border-[#DC0000]/30 transition-all group"
+                  className="flex items-center justify-between bg-[#111] border border-[#1a1a1a] rounded-lg p-3 hover:border-[#E10600]/30 transition-all group"
                 >
                   <div>
                     <p className="text-sm font-medium text-white">{b.vehicleName}</p>
@@ -172,7 +177,7 @@ export default function DashboardClient({ data }: { data: DashboardData }) {
                       {b.customerName} &middot; {formatTime(b.time)}
                     </p>
                   </div>
-                  <ArrowUpRight size={14} className="text-[#333] group-hover:text-[#DC0000] transition-colors" />
+                  <ArrowUpRight size={14} className="text-[#333] group-hover:text-[#E10600] transition-colors" />
                 </Link>
               ))}
             </div>
@@ -183,7 +188,7 @@ export default function DashboardClient({ data }: { data: DashboardData }) {
         <div>
           <h2 className="text-sm font-medium text-[#888] mb-3 tracking-[0.1em] uppercase">
             Today&apos;s Dropoffs
-            <span className="text-[#DC0000] ml-2">{data.todaysDropoffs.length}</span>
+            <span className="text-[#E10600] ml-2">{data.todaysDropoffs.length}</span>
           </h2>
           {data.todaysDropoffs.length === 0 ? (
             <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-4 text-sm text-[#444]">
@@ -195,7 +200,7 @@ export default function DashboardClient({ data }: { data: DashboardData }) {
                 <Link
                   key={b.id}
                   href={`/bookings/${b.id}`}
-                  className="flex items-center justify-between bg-[#111] border border-[#1a1a1a] rounded-lg p-3 hover:border-[#DC0000]/30 transition-all group"
+                  className="flex items-center justify-between bg-[#111] border border-[#1a1a1a] rounded-lg p-3 hover:border-[#E10600]/30 transition-all group"
                 >
                   <div>
                     <p className="text-sm font-medium text-white">{b.vehicleName}</p>
@@ -203,7 +208,7 @@ export default function DashboardClient({ data }: { data: DashboardData }) {
                       {b.customerName} &middot; {formatTime(b.time)}
                     </p>
                   </div>
-                  <ArrowUpRight size={14} className="text-[#333] group-hover:text-[#DC0000] transition-colors" />
+                  <ArrowUpRight size={14} className="text-[#333] group-hover:text-[#E10600] transition-colors" />
                 </Link>
               ))}
             </div>
@@ -226,7 +231,7 @@ export default function DashboardClient({ data }: { data: DashboardData }) {
               <Link
                 key={inq.id}
                 href={`/bookings/${inq.id}`}
-                className="flex items-center justify-between bg-[#111] border border-[#1a1a1a] rounded-lg p-3 hover:border-[#DC0000]/30 transition-all group"
+                className="flex items-center justify-between bg-[#111] border border-[#1a1a1a] rounded-lg p-3 hover:border-[#E10600]/30 transition-all group"
               >
                 <div className="flex items-center gap-3">
                   <MessageSquare size={14} className="text-[#333]" />
@@ -241,7 +246,7 @@ export default function DashboardClient({ data }: { data: DashboardData }) {
                   <span className="text-xs text-[#444]">
                     {new Date(inq.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                   </span>
-                  <ArrowUpRight size={14} className="text-[#333] group-hover:text-[#DC0000] transition-colors" />
+                  <ArrowUpRight size={14} className="text-[#333] group-hover:text-[#E10600] transition-colors" />
                 </div>
               </Link>
             ))}

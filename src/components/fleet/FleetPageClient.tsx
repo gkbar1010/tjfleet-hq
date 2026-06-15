@@ -103,7 +103,7 @@ export default function FleetPageClient({
         <h1 className="text-2xl font-bold text-white">Fleet Inventory</h1>
         <Link
           href="/fleet/new"
-          className="bg-[#DC0000] text-white px-4 py-2 rounded font-medium hover:bg-[#FF1A1A] transition-colors"
+          className="bg-[#E10600] text-white px-4 py-2 rounded font-medium hover:bg-[#FF2D2D] transition-colors"
         >
           Add Vehicle
         </Link>

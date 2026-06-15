@@ -1,15 +1,17 @@
 @import "tailwindcss";
 
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --rosso: #DC0000;
-  --rosso-dark: #9B0000;
-  --rosso-glow: #FF1A1A;
+  --background: #080808;
+  --foreground: #e0e0e0;
+  --rosso: #E10600;
+  --rosso-dark: #8B0000;
+  --rosso-glow: #FF2D2D;
   --verde: #008C45;
   --bianco: #F2F2F2;
-  --oro: #C5A258;
-  --oro-light: #D4B96E;
+  --carbon: #0e0e0e;
+  --carbon-light: #141414;
 }
 
 @theme inline {
@@ -17,19 +19,30 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --color-rosso: #DC0000;
-  --color-rosso-dark: #9B0000;
+  --color-rosso: #E10600;
+  --color-rosso-dark: #8B0000;
   --color-verde: #008C45;
-  --color-oro: #C5A258;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: 'Rajdhani', system-ui, sans-serif;
+  font-weight: 500;
 }
 
-/* Italian racing stripe accent — subtle top border */
+/* Carbon fiber subtle background pattern */
+.carbon-bg {
+  background-image:
+    linear-gradient(45deg, #0c0c0c 25%, transparent 25%),
+    linear-gradient(-45deg, #0c0c0c 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #0c0c0c 75%),
+    linear-gradient(-45deg, transparent 75%, #0c0c0c 75%);
+  background-size: 4px 4px;
+  background-position: 0 0, 0 2px, 2px -2px, -2px 0px;
+}
+
+/* Italian racing stripe accent */
 .italian-stripe {
   position: relative;
 }
@@ -40,76 +53,136 @@ body {
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, #008C45 33.33%, #F2F2F2 33.33%, #F2F2F2 66.66%, #DC0000 66.66%);
+  background: linear-gradient(90deg, #008C45 33.33%, #F2F2F2 33.33%, #F2F2F2 66.66%, #E10600 66.66%);
 }
 
-/* Rosso accent glow */
+/* Rosso glow effects */
 .rosso-glow {
-  box-shadow: 0 0 20px rgba(220, 0, 0, 0.15);
+  box-shadow: 0 0 30px rgba(225, 6, 0, 0.2), 0 0 60px rgba(225, 6, 0, 0.05);
 }
 
-/* FullCalendar dark + rosso theme */
+.rosso-border-glow {
+  border-color: rgba(225, 6, 0, 0.3);
+  box-shadow: 0 0 15px rgba(225, 6, 0, 0.08);
+}
+
+/* Racing number style for stat cards */
+.racing-number {
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+}
+
+/* Section headers — motorsport style */
+.section-header {
+  font-family: 'Orbitron', monospace;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.7rem;
+}
+
+/* FullCalendar — dark rosso motorsport */
 .fc {
-  --fc-border-color: #1f1f1f;
+  --fc-border-color: #1a1a1a;
   --fc-bg-event-opacity: 0.9;
   --fc-page-bg-color: transparent;
-  --fc-neutral-bg-color: #111;
-  --fc-list-event-hover-bg-color: #1a1a1a;
-  --fc-today-bg-color: rgba(220, 0, 0, 0.05);
+  --fc-neutral-bg-color: #0e0e0e;
+  --fc-list-event-hover-bg-color: #141414;
+  --fc-today-bg-color: rgba(225, 6, 0, 0.04);
   --fc-event-text-color: #fff;
 }
 
 .fc .fc-col-header-cell-cushion,
 .fc .fc-daygrid-day-number,
 .fc .fc-list-day-cushion {
-  color: #999;
-}
-
-.fc .fc-button-primary {
-  background-color: #1a1a1a;
-  border-color: #2a2a2a;
-  color: #999;
-  font-weight: 500;
-  text-transform: uppercase;
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-}
-
-.fc .fc-button-primary:hover {
-  background-color: #222;
-  color: #fff;
-}
-
-.fc .fc-button-primary:not(:disabled).fc-button-active {
-  background-color: #DC0000;
-  color: #fff;
-  border-color: #DC0000;
-}
-
-.fc .fc-toolbar-title {
-  color: #fff;
+  color: #777;
+  font-family: 'Rajdhani', sans-serif;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
-/* Scrollbar */
+.fc .fc-button-primary {
+  background-color: #141414;
+  border-color: #1e1e1e;
+  color: #888;
+  font-family: 'Orbitron', monospace;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  padding: 6px 14px;
+}
+
+.fc .fc-button-primary:hover {
+  background-color: #1a1a1a;
+  color: #fff;
+  border-color: #E10600;
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active {
+  background-color: #E10600;
+  color: #fff;
+  border-color: #E10600;
+  box-shadow: 0 0 10px rgba(225, 6, 0, 0.3);
+}
+
+.fc .fc-toolbar-title {
+  color: #fff;
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 1.1rem !important;
+}
+
+/* Scrollbar — thin, rosso accent */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 3px;
 }
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: #080808;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2a2a2a;
+  background: #222;
   border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #DC0000;
+  background: #E10600;
 }
 
 /* Selection */
 ::selection {
-  background: rgba(220, 0, 0, 0.3);
+  background: rgba(225, 6, 0, 0.35);
   color: #fff;
+}
+
+/* Racing red underline for active links */
+.racing-underline {
+  position: relative;
+}
+.racing-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #E10600;
+  box-shadow: 0 0 6px rgba(225, 6, 0, 0.5);
+}
+
+/* Inputs — motorsport dark */
+input, select, textarea {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 500;
+}
+
+/* Table headers */
+th {
+  font-family: 'Orbitron', monospace;
+  font-weight: 500;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }

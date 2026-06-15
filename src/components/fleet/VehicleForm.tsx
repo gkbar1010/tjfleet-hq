@@ -350,7 +350,7 @@ export default function VehicleForm({ vehicle }: { vehicle?: VehicleData }) {
         <button
           type="submit"
           disabled={saving}
-          className="bg-[#DC0000] text-white px-4 py-2 rounded font-medium hover:bg-[#FF1A1A] disabled:opacity-50 transition-colors"
+          className="bg-[#E10600] text-white px-4 py-2 rounded font-medium hover:bg-[#FF2D2D] disabled:opacity-50 transition-colors"
         >
           {saving ? 'Saving...' : isEditing ? 'Save Changes' : 'Create Vehicle'}
         </button>

@@ -130,7 +130,7 @@ export default function CustomerDetailClient({
         <div className="flex items-center gap-2">
           <Link
             href={`/customers/${customer.id}/edit`}
-            className="inline-flex items-center gap-2 bg-[#DC0000] text-white px-4 py-2 rounded font-medium hover:bg-[#FF1A1A] transition-colors text-sm"
+            className="inline-flex items-center gap-2 bg-[#E10600] text-white px-4 py-2 rounded font-medium hover:bg-[#FF2D2D] transition-colors text-sm"
           >
             <Pencil size={14} />
             Edit

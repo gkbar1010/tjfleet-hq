@@ -54,7 +54,7 @@ export default function CustomersPageClient({
         </div>
         <Link
           href="/customers/new"
-          className="inline-flex items-center gap-2 bg-[#DC0000] text-white px-4 py-2 rounded font-medium hover:bg-[#FF1A1A] transition-colors"
+          className="inline-flex items-center gap-2 bg-[#E10600] text-white px-4 py-2 rounded font-medium hover:bg-[#FF2D2D] transition-colors"
         >
           <Plus size={16} />
           Add Customer
@@ -102,7 +102,7 @@ export default function CustomersPageClient({
           {!search && !tag && (
             <Link
               href="/customers/new"
-              className="inline-flex items-center gap-2 bg-[#DC0000] text-white px-4 py-2 rounded font-medium hover:bg-[#FF1A1A] transition-colors mt-4"
+              className="inline-flex items-center gap-2 bg-[#E10600] text-white px-4 py-2 rounded font-medium hover:bg-[#FF2D2D] transition-colors mt-4"
             >
               <Plus size={16} />
               Add your first customer

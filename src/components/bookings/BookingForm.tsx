@@ -325,7 +325,7 @@ export default function BookingForm({
         <button
           type="submit"
           disabled={loading}
-          className="bg-[#DC0000] text-white px-4 py-2 rounded font-medium hover:bg-[#FF1A1A] disabled:opacity-50 transition-colors"
+          className="bg-[#E10600] text-white px-4 py-2 rounded font-medium hover:bg-[#FF2D2D] disabled:opacity-50 transition-colors"
         >
           {loading ? 'Saving...' : isEdit ? 'Update Booking' : 'Create Booking'}
         </button>

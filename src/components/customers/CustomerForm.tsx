@@ -171,7 +171,7 @@ export default function CustomerForm({
                   onClick={() => toggleTag(tag)}
                   className={`inline-flex items-center px-3 py-1.5 rounded text-xs font-medium transition-colors ${
                     isSelected
-                      ? 'bg-[#DC0000] text-white'
+                      ? 'bg-[#E10600] text-white'
                       : 'bg-neutral-800 text-[#aaa] hover:bg-[#222]'
                   }`}
                 >
@@ -197,7 +197,7 @@ export default function CustomerForm({
           <button
             type="submit"
             disabled={loading}
-            className="inline-flex items-center gap-2 bg-[#DC0000] text-white px-6 py-2 rounded font-medium hover:bg-[#FF1A1A] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="inline-flex items-center gap-2 bg-[#E10600] text-white px-6 py-2 rounded font-medium hover:bg-[#FF2D2D] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading && <Loader2 size={16} className="animate-spin" />}
             {isEditing ? 'Save Changes' : 'Create Customer'}

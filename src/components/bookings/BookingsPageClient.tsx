@@ -105,7 +105,7 @@ export default function BookingsPageClient({
         <h1 className="text-2xl font-bold text-white">Bookings</h1>
         <Link
           href="/bookings/new"
-          className="bg-[#DC0000] text-white px-4 py-2 rounded font-medium hover:bg-[#FF1A1A] transition-colors"
+          className="bg-[#E10600] text-white px-4 py-2 rounded font-medium hover:bg-[#FF2D2D] transition-colors"
         >
           New Booking
         </Link>
@@ -124,7 +124,7 @@ export default function BookingsPageClient({
             />
             <button
               type="submit"
-              className="bg-[#DC0000] text-white px-3 py-2 rounded text-sm font-medium hover:bg-[#FF1A1A]"
+              className="bg-[#E10600] text-white px-3 py-2 rounded text-sm font-medium hover:bg-[#FF2D2D]"
             >
               Search
             </button>
