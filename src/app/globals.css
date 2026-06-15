@@ -171,17 +171,49 @@ body {
   box-shadow: 0 0 6px rgba(225, 6, 0, 0.5);
 }
 
-/* Inputs — motorsport dark */
+/* Inputs — readable motorsport */
 input, select, textarea {
   font-family: 'Rajdhani', sans-serif;
   font-weight: 500;
+  font-size: 15px;
 }
 
-/* Table headers */
+/* Table headers — Orbitron accent */
 th {
   font-family: 'Orbitron', monospace;
   font-weight: 500;
   font-size: 0.65rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+}
+
+/* Table body — readable */
+td {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+/* Better readability for body text */
+p, span, div, a, li, label {
+  font-family: 'Rajdhani', sans-serif;
+}
+
+/* Orbitron only for explicit racing elements */
+h1, h2, h3 {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* Color scheme overrides for date/time inputs */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) brightness(0.6);
+  cursor: pointer;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover,
+input[type="datetime-local"]::-webkit-calendar-picker-indicator:hover {
+  filter: invert(0.5) sepia(1) saturate(20) hue-rotate(350deg);
 }
