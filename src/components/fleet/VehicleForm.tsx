@@ -20,6 +20,11 @@ type VehicleData = {
   superiorListingStatus: string
   exoticDriveListingStatus: string
   turoListingStatus: string
+  thumbnailUrl: string | null
+  turoLink: string | null
+  driveLink: string | null
+  superiorLink: string | null
+  exoticDriveLink: string | null
   notes: string | null
 }
 
@@ -264,6 +269,68 @@ export default function VehicleForm({ vehicle }: { vehicle?: VehicleData }) {
                 </option>
               ))}
             </select>
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-6 space-y-6 mt-6">
+        <h2 className="text-lg font-semibold text-white">Photo & Links</h2>
+
+        <div>
+          <label className={labelClass}>Thumbnail Photo URL</label>
+          <input
+            type="url"
+            name="thumbnailUrl"
+            defaultValue={vehicle?.thumbnailUrl || ''}
+            className={inputClass}
+            placeholder="https://... (direct image link)"
+          />
+          <p className="text-xs text-neutral-500 mt-1">Paste a direct image URL. Shows on fleet list.</p>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className={labelClass}>Google Drive Link</label>
+            <input
+              type="url"
+              name="driveLink"
+              defaultValue={vehicle?.driveLink || ''}
+              className={inputClass}
+              placeholder="https://drive.google.com/..."
+            />
+          </div>
+          <div>
+            <label className={labelClass}>Turo Listing Link</label>
+            <input
+              type="url"
+              name="turoLink"
+              defaultValue={vehicle?.turoLink || ''}
+              className={inputClass}
+              placeholder="https://turo.com/..."
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className={labelClass}>Superior Website Link</label>
+            <input
+              type="url"
+              name="superiorLink"
+              defaultValue={vehicle?.superiorLink || ''}
+              className={inputClass}
+              placeholder="https://superiormotorclub.com/..."
+            />
+          </div>
+          <div>
+            <label className={labelClass}>Exotic Drive Link</label>
+            <input
+              type="url"
+              name="exoticDriveLink"
+              defaultValue={vehicle?.exoticDriveLink || ''}
+              className={inputClass}
+              placeholder="https://exoticdrive.com/..."
+            />
           </div>
         </div>
       </div>

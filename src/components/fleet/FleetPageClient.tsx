@@ -16,6 +16,7 @@ type Vehicle = {
   superiorListingStatus: string
   exoticDriveListingStatus: string
   turoListingStatus: string
+  thumbnailUrl: string | null
 }
 
 const STATUS_OPTIONS = [
@@ -159,6 +160,7 @@ export default function FleetPageClient({
           <table className="w-full">
             <thead>
               <tr className="bg-neutral-800 text-left">
+                <th className="w-16 px-4 py-3"></th>
                 <th className="px-4 py-3 text-sm font-medium text-neutral-400">Vehicle</th>
                 <th className="px-4 py-3 text-sm font-medium text-neutral-400">Year</th>
                 <th className="px-4 py-3 text-sm font-medium text-neutral-400">Status</th>
@@ -174,6 +176,19 @@ export default function FleetPageClient({
                   onClick={() => router.push(`/fleet/${vehicle.id}`)}
                   className="hover:bg-neutral-800/50 cursor-pointer transition-colors"
                 >
+                  <td className="px-4 py-3 w-16">
+                    {vehicle.thumbnailUrl ? (
+                      <img
+                        src={vehicle.thumbnailUrl}
+                        alt={vehicle.displayName}
+                        className="w-12 h-12 rounded object-cover"
+                      />
+                    ) : (
+                      <div className="w-12 h-12 rounded bg-neutral-800 flex items-center justify-center text-neutral-600 text-xs">
+                        No img
+                      </div>
+                    )}
+                  </td>
                   <td className="px-4 py-3">
                     <div className="text-white font-medium">{vehicle.displayName}</div>
                     {(vehicle.make || vehicle.model) && (

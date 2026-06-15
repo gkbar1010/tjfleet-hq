@@ -119,6 +119,11 @@ model Vehicle {
   superiorListingStatus ListingStatus @default(UNKNOWN) @map("superior_listing_status")
   exoticDriveListingStatus ListingStatus @default(UNKNOWN) @map("exotic_drive_listing_status")
   turoListingStatus     ListingStatus @default(UNKNOWN) @map("turo_listing_status")
+  thumbnailUrl          String?       @map("thumbnail_url")
+  turoLink              String?       @map("turo_link")
+  driveLink             String?       @map("drive_link")
+  superiorLink          String?       @map("superior_link")
+  exoticDriveLink       String?       @map("exotic_drive_link")
   notes                 String?
   createdAt             DateTime      @default(now()) @map("created_at")
   updatedAt             DateTime      @updatedAt @map("updated_at")

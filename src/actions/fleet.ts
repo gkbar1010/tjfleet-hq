@@ -117,6 +117,11 @@ function extractVehicleData(formData: FormData) {
   const exoticDriveListingStatus = formData.get('exoticDriveListingStatus') as string
   const turoListingStatus = formData.get('turoListingStatus') as string
   const notes = formData.get('notes') as string
+  const thumbnailUrl = formData.get('thumbnailUrl') as string
+  const turoLink = formData.get('turoLink') as string
+  const driveLink = formData.get('driveLink') as string
+  const superiorLink = formData.get('superiorLink') as string
+  const exoticDriveLink = formData.get('exoticDriveLink') as string
 
   if (!displayName || !displayName.trim()) {
     throw new Error('Display name is required')
@@ -137,6 +142,11 @@ function extractVehicleData(formData: FormData) {
     superiorListingStatus: (superiorListingStatus as ListingStatus) || ListingStatus.UNKNOWN,
     exoticDriveListingStatus: (exoticDriveListingStatus as ListingStatus) || ListingStatus.UNKNOWN,
     turoListingStatus: (turoListingStatus as ListingStatus) || ListingStatus.UNKNOWN,
+    thumbnailUrl: thumbnailUrl?.trim() || null,
+    turoLink: turoLink?.trim() || null,
+    driveLink: driveLink?.trim() || null,
+    superiorLink: superiorLink?.trim() || null,
+    exoticDriveLink: exoticDriveLink?.trim() || null,
     notes: notes?.trim() || null,
   }
 }

@@ -41,6 +41,11 @@ type Vehicle = {
   superiorListingStatus: string
   exoticDriveListingStatus: string
   turoListingStatus: string
+  thumbnailUrl: string | null
+  turoLink: string | null
+  driveLink: string | null
+  superiorLink: string | null
+  exoticDriveLink: string | null
   notes: string | null
   createdAt: string
   updatedAt: string
@@ -153,6 +158,17 @@ export default function VehicleDetailClient({ vehicle }: { vehicle: Vehicle }) {
           </button>
         </div>
       </div>
+
+      {/* Thumbnail */}
+      {vehicle.thumbnailUrl && (
+        <div className="mb-6">
+          <img
+            src={vehicle.thumbnailUrl}
+            alt={vehicle.displayName}
+            className="w-full max-w-md h-64 object-cover rounded-lg border border-neutral-800"
+          />
+        </div>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Main info */}
@@ -274,6 +290,59 @@ export default function VehicleDetailClient({ vehicle }: { vehicle: Vehicle }) {
               </div>
             </div>
           </div>
+
+          {/* Links */}
+          {(vehicle.driveLink || vehicle.turoLink || vehicle.superiorLink || vehicle.exoticDriveLink) && (
+            <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-6">
+              <h2 className="text-lg font-semibold text-white mb-4">Links</h2>
+              <div className="space-y-2">
+                {vehicle.driveLink && (
+                  <a
+                    href={vehicle.driveLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300 transition-colors"
+                  >
+                    <span>Google Drive Photos</span>
+                    <span className="text-neutral-600">&rarr;</span>
+                  </a>
+                )}
+                {vehicle.turoLink && (
+                  <a
+                    href={vehicle.turoLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300 transition-colors"
+                  >
+                    <span>Turo Listing</span>
+                    <span className="text-neutral-600">&rarr;</span>
+                  </a>
+                )}
+                {vehicle.superiorLink && (
+                  <a
+                    href={vehicle.superiorLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300 transition-colors"
+                  >
+                    <span>Superior Motor Club</span>
+                    <span className="text-neutral-600">&rarr;</span>
+                  </a>
+                )}
+                {vehicle.exoticDriveLink && (
+                  <a
+                    href={vehicle.exoticDriveLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300 transition-colors"
+                  >
+                    <span>Exotic Drive</span>
+                    <span className="text-neutral-600">&rarr;</span>
+                  </a>
+                )}
+              </div>
+            </div>
+          )}
 
           <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-6">
             <h2 className="text-lg font-semibold text-white mb-4">Files</h2>
