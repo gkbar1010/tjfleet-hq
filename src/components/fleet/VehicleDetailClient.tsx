@@ -59,22 +59,22 @@ const STATUS_COLORS: Record<string, string> = {
   IN_MAINTENANCE: 'bg-yellow-900/50 text-yellow-400',
   NEEDS_CLEANING: 'bg-orange-900/50 text-orange-400',
   UNAVAILABLE: 'bg-red-900/50 text-red-400',
-  SOLD_REMOVED: 'bg-neutral-700/50 text-neutral-400',
+  SOLD_REMOVED: 'bg-neutral-700/50 text-[#888]',
 }
 
 const LISTING_COLORS: Record<string, string> = {
   LISTED: 'bg-green-900/50 text-green-400',
-  NOT_LISTED: 'bg-neutral-700/50 text-neutral-400',
+  NOT_LISTED: 'bg-neutral-700/50 text-[#888]',
   PAUSED: 'bg-yellow-900/50 text-yellow-400',
-  UNKNOWN: 'bg-neutral-700/50 text-neutral-500',
+  UNKNOWN: 'bg-neutral-700/50 text-[#666]',
 }
 
 const BOOKING_STATUS_COLORS: Record<string, string> = {
-  INQUIRY: 'bg-neutral-700/50 text-neutral-400',
+  INQUIRY: 'bg-neutral-700/50 text-[#888]',
   PENDING: 'bg-yellow-900/50 text-yellow-400',
   CONFIRMED: 'bg-blue-900/50 text-blue-400',
   ACTIVE: 'bg-green-900/50 text-green-400',
-  COMPLETED: 'bg-neutral-700/50 text-neutral-300',
+  COMPLETED: 'bg-neutral-700/50 text-[#aaa]',
   CANCELLED: 'bg-red-900/50 text-red-400',
 }
 
@@ -128,7 +128,7 @@ export default function VehicleDetailClient({ vehicle }: { vehicle: Vehicle }) {
           <h1 className="text-2xl font-bold text-white">Edit {vehicle.displayName}</h1>
           <button
             onClick={() => setEditing(false)}
-            className="bg-neutral-800 text-white px-4 py-2 rounded hover:bg-neutral-700 transition-colors"
+            className="bg-[#1a1a1a] text-white px-4 py-2 rounded hover:bg-[#222] transition-colors"
           >
             Cancel
           </button>
@@ -145,7 +145,7 @@ export default function VehicleDetailClient({ vehicle }: { vehicle: Vehicle }) {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setEditing(true)}
-            className="bg-white text-black px-4 py-2 rounded font-medium hover:bg-neutral-200 transition-colors"
+            className="bg-[#DC0000] text-white px-4 py-2 rounded font-medium hover:bg-[#FF1A1A] transition-colors"
           >
             Edit
           </button>
@@ -165,7 +165,7 @@ export default function VehicleDetailClient({ vehicle }: { vehicle: Vehicle }) {
           <img
             src={vehicle.thumbnailUrl}
             alt={vehicle.displayName}
-            className="w-full max-w-md h-64 object-cover rounded-lg border border-neutral-800"
+            className="w-full max-w-md h-64 object-cover rounded-lg border border-[#1a1a1a]"
           />
         </div>
       )}
@@ -173,7 +173,7 @@ export default function VehicleDetailClient({ vehicle }: { vehicle: Vehicle }) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Main info */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-6">
+          <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-6">
             <h2 className="text-lg font-semibold text-white mb-4">Vehicle Info</h2>
             <div className="grid grid-cols-2 gap-4">
               <InfoField label="Year" value={vehicle.year?.toString()} />
@@ -192,17 +192,17 @@ export default function VehicleDetailClient({ vehicle }: { vehicle: Vehicle }) {
           </div>
 
           {/* Bookings */}
-          <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-6">
+          <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-6">
             <h2 className="text-lg font-semibold text-white mb-4">Recent Bookings</h2>
             {vehicle.bookings.length === 0 ? (
-              <p className="text-neutral-500 text-sm">No bookings for this vehicle</p>
+              <p className="text-[#666] text-sm">No bookings for this vehicle</p>
             ) : (
               <div className="space-y-3">
                 {vehicle.bookings.map((booking) => (
                   <Link
                     key={booking.id}
                     href={`/bookings/${booking.id}`}
-                    className="block bg-neutral-800/50 border border-neutral-700 rounded-lg p-3 hover:border-neutral-600 transition-colors"
+                    className="block bg-[#1a1a1a] border border-neutral-700 rounded-lg p-3 hover:border-neutral-600 transition-colors"
                   >
                     <div className="flex items-center justify-between">
                       <span className="text-white font-medium">
@@ -216,7 +216,7 @@ export default function VehicleDetailClient({ vehicle }: { vehicle: Vehicle }) {
                         {formatStatus(booking.status)}
                       </span>
                     </div>
-                    <div className="text-sm text-neutral-400 mt-1">
+                    <div className="text-sm text-[#888] mt-1">
                       {formatDateTime(booking.pickupDatetime)} &rarr;{' '}
                       {formatDateTime(booking.dropoffDatetime)}
                     </div>
@@ -228,20 +228,20 @@ export default function VehicleDetailClient({ vehicle }: { vehicle: Vehicle }) {
 
           {/* Notes */}
           {vehicle.notes && (
-            <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-6">
+            <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-6">
               <h2 className="text-lg font-semibold text-white mb-2">Notes</h2>
-              <p className="text-neutral-300 whitespace-pre-wrap">{vehicle.notes}</p>
+              <p className="text-[#aaa] whitespace-pre-wrap">{vehicle.notes}</p>
             </div>
           )}
         </div>
 
         {/* Sidebar */}
         <div className="space-y-6">
-          <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-6">
+          <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-6">
             <h2 className="text-lg font-semibold text-white mb-4">Status</h2>
             <div className="space-y-3">
               <div>
-                <span className="text-sm text-neutral-400">Vehicle Status</span>
+                <span className="text-sm text-[#888]">Vehicle Status</span>
                 <div className="mt-1">
                   <span
                     className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
@@ -253,7 +253,7 @@ export default function VehicleDetailClient({ vehicle }: { vehicle: Vehicle }) {
                 </div>
               </div>
               <div>
-                <span className="text-sm text-neutral-400">Superior</span>
+                <span className="text-sm text-[#888]">Superior</span>
                 <div className="mt-1">
                   <span
                     className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
@@ -265,7 +265,7 @@ export default function VehicleDetailClient({ vehicle }: { vehicle: Vehicle }) {
                 </div>
               </div>
               <div>
-                <span className="text-sm text-neutral-400">Exotic Drive</span>
+                <span className="text-sm text-[#888]">Exotic Drive</span>
                 <div className="mt-1">
                   <span
                     className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
@@ -277,7 +277,7 @@ export default function VehicleDetailClient({ vehicle }: { vehicle: Vehicle }) {
                 </div>
               </div>
               <div>
-                <span className="text-sm text-neutral-400">Turo</span>
+                <span className="text-sm text-[#888]">Turo</span>
                 <div className="mt-1">
                   <span
                     className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
@@ -293,7 +293,7 @@ export default function VehicleDetailClient({ vehicle }: { vehicle: Vehicle }) {
 
           {/* Links */}
           {(vehicle.driveLink || vehicle.turoLink || vehicle.superiorLink || vehicle.exoticDriveLink) && (
-            <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-6">
+            <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-6">
               <h2 className="text-lg font-semibold text-white mb-4">Links</h2>
               <div className="space-y-2">
                 {vehicle.driveLink && (
@@ -344,10 +344,10 @@ export default function VehicleDetailClient({ vehicle }: { vehicle: Vehicle }) {
             </div>
           )}
 
-          <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-6">
+          <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-6">
             <h2 className="text-lg font-semibold text-white mb-4">Files</h2>
             {vehicle.files.length === 0 ? (
-              <p className="text-neutral-500 text-sm">No files uploaded</p>
+              <p className="text-[#666] text-sm">No files uploaded</p>
             ) : (
               <div className="space-y-2">
                 {vehicle.files.map((file) => (
@@ -356,10 +356,10 @@ export default function VehicleDetailClient({ vehicle }: { vehicle: Vehicle }) {
                     href={file.fileUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block text-sm text-neutral-300 hover:text-white truncate transition-colors"
+                    className="block text-sm text-[#aaa] hover:text-white truncate transition-colors"
                   >
                     {file.fileName || 'Untitled file'}
-                    <span className="text-neutral-500 ml-2 text-xs">
+                    <span className="text-[#666] ml-2 text-xs">
                       {formatDate(file.createdAt)}
                     </span>
                   </a>
@@ -368,7 +368,7 @@ export default function VehicleDetailClient({ vehicle }: { vehicle: Vehicle }) {
             )}
           </div>
 
-          <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-6 text-xs text-neutral-500 space-y-1">
+          <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-6 text-xs text-[#666] space-y-1">
             <div>Created: {formatDate(vehicle.createdAt)}</div>
             <div>Updated: {formatDate(vehicle.updatedAt)}</div>
           </div>
@@ -381,7 +381,7 @@ export default function VehicleDetailClient({ vehicle }: { vehicle: Vehicle }) {
 function InfoField({ label, value }: { label: string; value: string | null | undefined }) {
   return (
     <div>
-      <span className="text-sm text-neutral-400">{label}</span>
+      <span className="text-sm text-[#888]">{label}</span>
       <div className="text-white mt-0.5">{value || '-'}</div>
     </div>
   )

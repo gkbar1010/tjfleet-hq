@@ -11,9 +11,9 @@ export default async function SettingsUsersPage() {
   if (user.role !== 'ADMIN') {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-8 text-center max-w-md">
+        <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-8 text-center max-w-md">
           <h2 className="text-xl font-semibold text-white mb-2">Access Denied</h2>
-          <p className="text-neutral-400">
+          <p className="text-[#888]">
             You do not have permission to manage users. Only administrators can access this page.
           </p>
         </div>
@@ -27,7 +27,7 @@ export default async function SettingsUsersPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-white">User Management</h1>
-        <p className="text-neutral-400 mt-1">Manage team members and their roles.</p>
+        <p className="text-[#888] mt-1">Manage team members and their roles.</p>
       </div>
       <UsersPageClient users={users} currentUserId={user.id} />
     </div>

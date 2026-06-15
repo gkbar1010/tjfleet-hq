@@ -10,7 +10,7 @@ type Role = (typeof ROLES)[number]
 const ROLE_BADGE: Record<Role, string> = {
   ADMIN: 'bg-red-900 text-red-200',
   SECRETARY: 'bg-blue-900 text-blue-200',
-  VIEWER: 'bg-neutral-700 text-neutral-300',
+  VIEWER: 'bg-neutral-700 text-[#aaa]',
 }
 
 interface UsersPageClientProps {
@@ -42,10 +42,10 @@ export function UsersPageClient({ users, currentUserId }: UsersPageClientProps) 
       )}
 
       <div className="flex items-center justify-between">
-        <p className="text-sm text-neutral-400">{users.length} user{users.length !== 1 ? 's' : ''}</p>
+        <p className="text-sm text-[#888]">{users.length} user{users.length !== 1 ? 's' : ''}</p>
         <button
           onClick={() => { setShowInvite(!showInvite); clearMessages() }}
-          className="bg-white text-black px-4 py-2 rounded font-medium hover:bg-neutral-200 text-sm"
+          className="bg-[#DC0000] text-white px-4 py-2 rounded font-medium hover:bg-[#FF1A1A] text-sm"
         >
           {showInvite ? 'Cancel' : 'Invite User'}
         </button>
@@ -59,10 +59,10 @@ export function UsersPageClient({ users, currentUserId }: UsersPageClientProps) 
         />
       )}
 
-      <div className="bg-neutral-900 border border-neutral-800 rounded-lg overflow-hidden">
+      <div className="bg-[#111] border border-[#1a1a1a] rounded-lg overflow-hidden">
         <table className="w-full text-sm">
           <thead>
-            <tr className="bg-neutral-800 text-neutral-300 text-left">
+            <tr className="bg-neutral-800 text-[#aaa] text-left">
               <th className="px-4 py-3 font-medium">Name</th>
               <th className="px-4 py-3 font-medium">Email</th>
               <th className="px-4 py-3 font-medium">Role</th>
@@ -82,7 +82,7 @@ export function UsersPageClient({ users, currentUserId }: UsersPageClientProps) 
             ))}
             {users.length === 0 && (
               <tr>
-                <td colSpan={4} className="px-4 py-8 text-center text-neutral-500">
+                <td colSpan={4} className="px-4 py-8 text-center text-[#666]">
                   No users found.
                 </td>
               </tr>
@@ -139,9 +139,9 @@ function UserRow({
     <tr className={isPending ? 'opacity-50' : ''}>
       <td className="px-4 py-3 text-white">
         {user.fullName}
-        {isSelf && <span className="ml-2 text-xs text-neutral-500">(you)</span>}
+        {isSelf && <span className="ml-2 text-xs text-[#666]">(you)</span>}
       </td>
-      <td className="px-4 py-3 text-neutral-400">{user.email}</td>
+      <td className="px-4 py-3 text-[#888]">{user.email}</td>
       <td className="px-4 py-3">
         {isSelf ? (
           <span className={`inline-block px-2 py-0.5 rounded text-xs font-medium ${ROLE_BADGE[user.role as Role]}`}>
@@ -152,7 +152,7 @@ function UserRow({
             value={user.role}
             onChange={(e) => handleRoleChange(e.target.value)}
             disabled={isPending}
-            className="bg-neutral-900 border border-neutral-700 rounded px-2 py-1 text-white text-xs focus:outline-none focus:border-white"
+            className="bg-[#111] border border-[#222] rounded px-2 py-1 text-white text-xs focus:outline-none focus:border-white"
           >
             {ROLES.map((role) => (
               <option key={role} value={role}>{role}</option>
@@ -165,7 +165,7 @@ function UserRow({
           <span className="text-xs text-neutral-600">--</span>
         ) : confirmDelete ? (
           <div className="flex items-center justify-end gap-2">
-            <span className="text-xs text-neutral-400">Confirm?</span>
+            <span className="text-xs text-[#888]">Confirm?</span>
             <button
               onClick={handleDelete}
               disabled={isPending}
@@ -176,7 +176,7 @@ function UserRow({
             <button
               onClick={() => setConfirmDelete(false)}
               disabled={isPending}
-              className="bg-neutral-700 text-neutral-300 px-3 py-1 rounded text-xs hover:bg-neutral-600"
+              className="bg-neutral-700 text-[#aaa] px-3 py-1 rounded text-xs hover:bg-neutral-600"
             >
               Cancel
             </button>
@@ -231,37 +231,37 @@ function InviteForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-neutral-900 border border-neutral-800 rounded-lg p-4">
+    <form onSubmit={handleSubmit} className="bg-[#111] border border-[#1a1a1a] rounded-lg p-4">
       <h3 className="text-white font-medium mb-3">Invite New User</h3>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <div>
-          <label className="block text-xs text-neutral-400 mb-1">Full Name</label>
+          <label className="block text-xs text-[#888] mb-1">Full Name</label>
           <input
             type="text"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
             placeholder="Jane Smith"
             required
-            className="w-full bg-neutral-900 border border-neutral-700 rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-white"
+            className="w-full bg-[#111] border border-[#222] rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-white"
           />
         </div>
         <div>
-          <label className="block text-xs text-neutral-400 mb-1">Email</label>
+          <label className="block text-xs text-[#888] mb-1">Email</label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="jane@example.com"
             required
-            className="w-full bg-neutral-900 border border-neutral-700 rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-white"
+            className="w-full bg-[#111] border border-[#222] rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-white"
           />
         </div>
         <div>
-          <label className="block text-xs text-neutral-400 mb-1">Role</label>
+          <label className="block text-xs text-[#888] mb-1">Role</label>
           <select
             value={role}
             onChange={(e) => setRole(e.target.value as Role)}
-            className="w-full bg-neutral-900 border border-neutral-700 rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-white"
+            className="w-full bg-[#111] border border-[#222] rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-white"
           >
             {ROLES.map((r) => (
               <option key={r} value={r}>{r}</option>
@@ -273,7 +273,7 @@ function InviteForm({
         <button
           type="submit"
           disabled={isPending}
-          className="bg-white text-black px-4 py-2 rounded font-medium hover:bg-neutral-200 text-sm disabled:opacity-50"
+          className="bg-[#DC0000] text-white px-4 py-2 rounded font-medium hover:bg-[#FF1A1A] text-sm disabled:opacity-50"
         >
           {isPending ? 'Inviting...' : 'Send Invite'}
         </button>

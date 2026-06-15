@@ -48,13 +48,13 @@ export default function CustomersPageClient({
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold text-white">Customers</h1>
-          <p className="text-sm text-neutral-400 mt-1">
+          <p className="text-sm text-[#888] mt-1">
             {customers.length} customer{customers.length !== 1 ? 's' : ''}
           </p>
         </div>
         <Link
           href="/customers/new"
-          className="inline-flex items-center gap-2 bg-white text-black px-4 py-2 rounded font-medium hover:bg-neutral-200 transition-colors"
+          className="inline-flex items-center gap-2 bg-[#DC0000] text-white px-4 py-2 rounded font-medium hover:bg-[#FF1A1A] transition-colors"
         >
           <Plus size={16} />
           Add Customer
@@ -65,7 +65,7 @@ export default function CustomersPageClient({
         <form onSubmit={handleSearchSubmit} className="flex-1 relative">
           <Search
             size={16}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500"
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-[#666]"
           />
           <input
             type="text"
@@ -75,14 +75,14 @@ export default function CustomersPageClient({
             onKeyDown={(e) => {
               if (e.key === 'Enter') handleSearchSubmit(e)
             }}
-            className="w-full bg-neutral-900 border border-neutral-700 rounded px-3 py-2 pl-9 text-white text-sm focus:outline-none focus:border-white transition-colors"
+            className="w-full bg-[#111] border border-[#222] rounded px-3 py-2 pl-9 text-white text-sm focus:outline-none focus:border-white transition-colors"
           />
         </form>
 
         <select
           value={tag ?? ''}
           onChange={(e) => applyFilters(undefined, e.target.value)}
-          className="bg-neutral-900 border border-neutral-700 rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-white transition-colors"
+          className="bg-[#111] border border-[#222] rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-white transition-colors"
         >
           <option value="">All Tags</option>
           {AVAILABLE_TAGS.map((t) => (
@@ -94,15 +94,15 @@ export default function CustomersPageClient({
       </div>
 
       {customers.length === 0 ? (
-        <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-12 text-center">
+        <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-12 text-center">
           <Users size={40} className="mx-auto text-neutral-600 mb-3" />
-          <p className="text-neutral-400 text-sm">
+          <p className="text-[#888] text-sm">
             {search || tag ? 'No customers match your filters.' : 'No customers yet.'}
           </p>
           {!search && !tag && (
             <Link
               href="/customers/new"
-              className="inline-flex items-center gap-2 bg-white text-black px-4 py-2 rounded font-medium hover:bg-neutral-200 transition-colors mt-4"
+              className="inline-flex items-center gap-2 bg-[#DC0000] text-white px-4 py-2 rounded font-medium hover:bg-[#FF1A1A] transition-colors mt-4"
             >
               <Plus size={16} />
               Add your first customer
@@ -110,10 +110,10 @@ export default function CustomersPageClient({
           )}
         </div>
       ) : (
-        <div className="bg-neutral-900 rounded-lg overflow-hidden border border-neutral-800">
+        <div className="bg-neutral-900 rounded-lg overflow-hidden border border-[#1a1a1a]">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-neutral-800 text-neutral-400 text-left">
+              <tr className="bg-neutral-800 text-[#888] text-left">
                 <th className="px-4 py-3 font-medium">Name</th>
                 <th className="px-4 py-3 font-medium">Phone</th>
                 <th className="px-4 py-3 font-medium">Email</th>
@@ -127,18 +127,18 @@ export default function CustomersPageClient({
                 <tr
                   key={customer.id}
                   onClick={() => router.push(`/customers/${customer.id}`)}
-                  className="hover:bg-neutral-800/50 cursor-pointer transition-colors"
+                  className="hover:bg-[#ffffff05] cursor-pointer transition-colors"
                 >
                   <td className="px-4 py-3 text-white font-medium">
                     {customer.fullName}
                   </td>
-                  <td className="px-4 py-3 text-neutral-300">
+                  <td className="px-4 py-3 text-[#aaa]">
                     {customer.phone ?? '--'}
                   </td>
-                  <td className="px-4 py-3 text-neutral-300">
+                  <td className="px-4 py-3 text-[#aaa]">
                     {customer.email ?? '--'}
                   </td>
-                  <td className="px-4 py-3 text-neutral-300">
+                  <td className="px-4 py-3 text-[#aaa]">
                     {customer.instagram ? `@${customer.instagram.replace('@', '')}` : '--'}
                   </td>
                   <td className="px-4 py-3">
@@ -147,7 +147,7 @@ export default function CustomersPageClient({
                         ? customer.tags.map((t) => (
                             <span
                               key={t}
-                              className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-neutral-800 text-neutral-300"
+                              className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-neutral-800 text-[#aaa]"
                             >
                               {t}
                             </span>
@@ -155,7 +155,7 @@ export default function CustomersPageClient({
                         : <span className="text-neutral-600">--</span>}
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-neutral-300 text-right">
+                  <td className="px-4 py-3 text-[#aaa] text-right">
                     {customer._count.bookings}
                   </td>
                 </tr>

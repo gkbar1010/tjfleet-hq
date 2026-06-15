@@ -43,14 +43,14 @@ const STATUS_COLORS: Record<string, string> = {
   IN_MAINTENANCE: 'bg-yellow-900/50 text-yellow-400',
   NEEDS_CLEANING: 'bg-orange-900/50 text-orange-400',
   UNAVAILABLE: 'bg-red-900/50 text-red-400',
-  SOLD_REMOVED: 'bg-neutral-700/50 text-neutral-400',
+  SOLD_REMOVED: 'bg-neutral-700/50 text-[#888]',
 }
 
 const LISTING_COLORS: Record<string, string> = {
   LISTED: 'bg-green-900/50 text-green-400',
-  NOT_LISTED: 'bg-neutral-700/50 text-neutral-400',
+  NOT_LISTED: 'bg-neutral-700/50 text-[#888]',
   PAUSED: 'bg-yellow-900/50 text-yellow-400',
-  UNKNOWN: 'bg-neutral-700/50 text-neutral-500',
+  UNKNOWN: 'bg-neutral-700/50 text-[#666]',
 }
 
 function formatStatus(status: string): string {
@@ -103,7 +103,7 @@ export default function FleetPageClient({
         <h1 className="text-2xl font-bold text-white">Fleet Inventory</h1>
         <Link
           href="/fleet/new"
-          className="bg-white text-black px-4 py-2 rounded font-medium hover:bg-neutral-200 transition-colors"
+          className="bg-[#DC0000] text-white px-4 py-2 rounded font-medium hover:bg-[#FF1A1A] transition-colors"
         >
           Add Vehicle
         </Link>
@@ -117,14 +117,14 @@ export default function FleetPageClient({
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             onBlur={() => updateFilters({ search })}
-            className="w-full bg-neutral-900 border border-neutral-700 rounded px-3 py-2 text-white placeholder-neutral-500 focus:outline-none focus:border-white"
+            className="w-full bg-[#111] border border-[#222] rounded px-3 py-2 text-white placeholder-neutral-500 focus:outline-none focus:border-white"
           />
         </form>
 
         <select
           value={initialStatus}
           onChange={(e) => updateFilters({ status: e.target.value })}
-          className="bg-neutral-900 border border-neutral-700 rounded px-3 py-2 text-white focus:outline-none focus:border-white"
+          className="bg-[#111] border border-[#222] rounded px-3 py-2 text-white focus:outline-none focus:border-white"
         >
           {STATUS_OPTIONS.map((opt) => (
             <option key={opt.value} value={opt.value}>
@@ -136,7 +136,7 @@ export default function FleetPageClient({
         <select
           value={initialListingStatus}
           onChange={(e) => updateFilters({ listingStatus: e.target.value })}
-          className="bg-neutral-900 border border-neutral-700 rounded px-3 py-2 text-white focus:outline-none focus:border-white"
+          className="bg-[#111] border border-[#222] rounded px-3 py-2 text-white focus:outline-none focus:border-white"
         >
           {LISTING_STATUS_OPTIONS.map((opt) => (
             <option key={opt.value} value={opt.value}>
@@ -147,26 +147,26 @@ export default function FleetPageClient({
       </div>
 
       {vehicles.length === 0 ? (
-        <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-12 text-center">
-          <p className="text-neutral-400 text-lg">No vehicles found</p>
-          <p className="text-neutral-500 text-sm mt-1">
+        <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-12 text-center">
+          <p className="text-[#888] text-lg">No vehicles found</p>
+          <p className="text-[#666] text-sm mt-1">
             {initialSearch || initialStatus || initialListingStatus
               ? 'Try adjusting your filters'
               : 'Add your first vehicle to get started'}
           </p>
         </div>
       ) : (
-        <div className="bg-neutral-900 rounded-lg overflow-hidden border border-neutral-800">
+        <div className="bg-neutral-900 rounded-lg overflow-hidden border border-[#1a1a1a]">
           <table className="w-full">
             <thead>
               <tr className="bg-neutral-800 text-left">
                 <th className="w-16 px-4 py-3"></th>
-                <th className="px-4 py-3 text-sm font-medium text-neutral-400">Vehicle</th>
-                <th className="px-4 py-3 text-sm font-medium text-neutral-400">Year</th>
-                <th className="px-4 py-3 text-sm font-medium text-neutral-400">Status</th>
-                <th className="px-4 py-3 text-sm font-medium text-neutral-400">Superior</th>
-                <th className="px-4 py-3 text-sm font-medium text-neutral-400">Turo</th>
-                <th className="px-4 py-3 text-sm font-medium text-neutral-400 text-right">Mileage</th>
+                <th className="px-4 py-3 text-sm font-medium text-[#888]">Vehicle</th>
+                <th className="px-4 py-3 text-sm font-medium text-[#888]">Year</th>
+                <th className="px-4 py-3 text-sm font-medium text-[#888]">Status</th>
+                <th className="px-4 py-3 text-sm font-medium text-[#888]">Superior</th>
+                <th className="px-4 py-3 text-sm font-medium text-[#888]">Turo</th>
+                <th className="px-4 py-3 text-sm font-medium text-[#888] text-right">Mileage</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-neutral-800">
@@ -174,7 +174,7 @@ export default function FleetPageClient({
                 <tr
                   key={vehicle.id}
                   onClick={() => router.push(`/fleet/${vehicle.id}`)}
-                  className="hover:bg-neutral-800/50 cursor-pointer transition-colors"
+                  className="hover:bg-[#ffffff05] cursor-pointer transition-colors"
                 >
                   <td className="px-4 py-3 w-16">
                     {vehicle.thumbnailUrl ? (
@@ -192,16 +192,16 @@ export default function FleetPageClient({
                   <td className="px-4 py-3">
                     <div className="text-white font-medium">{vehicle.displayName}</div>
                     {(vehicle.make || vehicle.model) && (
-                      <div className="text-sm text-neutral-500">
+                      <div className="text-sm text-[#666]">
                         {[vehicle.make, vehicle.model, vehicle.trim].filter(Boolean).join(' ')}
                       </div>
                     )}
                   </td>
-                  <td className="px-4 py-3 text-neutral-300">{vehicle.year || '-'}</td>
+                  <td className="px-4 py-3 text-[#aaa]">{vehicle.year || '-'}</td>
                   <td className="px-4 py-3">
                     <span
                       className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
-                        STATUS_COLORS[vehicle.status] || 'bg-neutral-700 text-neutral-400'
+                        STATUS_COLORS[vehicle.status] || 'bg-neutral-700 text-[#888]'
                       }`}
                     >
                       {formatStatus(vehicle.status)}
@@ -225,7 +225,7 @@ export default function FleetPageClient({
                       {formatListingStatus('Turo', vehicle.turoListingStatus)}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-neutral-300 text-right">
+                  <td className="px-4 py-3 text-[#aaa] text-right">
                     {vehicle.mileage != null ? vehicle.mileage.toLocaleString() : '-'}
                   </td>
                 </tr>

@@ -57,7 +57,7 @@ const STATUS_COLORS: Record<string, string> = {
   PENDING: 'bg-yellow-900/40 text-yellow-300',
   CONFIRMED: 'bg-emerald-900/40 text-emerald-300',
   ACTIVE: 'bg-green-900/40 text-green-300',
-  COMPLETED: 'bg-neutral-800 text-neutral-300',
+  COMPLETED: 'bg-neutral-800 text-[#aaa]',
   CANCELLED: 'bg-red-900/40 text-red-300',
 }
 
@@ -114,7 +114,7 @@ export default function CustomerDetailClient({
     <div>
       <Link
         href="/customers"
-        className="inline-flex items-center gap-1 text-sm text-neutral-400 hover:text-white transition-colors mb-4"
+        className="inline-flex items-center gap-1 text-sm text-[#888] hover:text-white transition-colors mb-4"
       >
         <ArrowLeft size={14} />
         Back to customers
@@ -123,14 +123,14 @@ export default function CustomerDetailClient({
       <div className="flex items-start justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold text-white">{customer.fullName}</h1>
-          <p className="text-sm text-neutral-500 mt-1">
+          <p className="text-sm text-[#666] mt-1">
             Customer since {formatDate(customer.createdAt)}
           </p>
         </div>
         <div className="flex items-center gap-2">
           <Link
             href={`/customers/${customer.id}/edit`}
-            className="inline-flex items-center gap-2 bg-white text-black px-4 py-2 rounded font-medium hover:bg-neutral-200 transition-colors text-sm"
+            className="inline-flex items-center gap-2 bg-[#DC0000] text-white px-4 py-2 rounded font-medium hover:bg-[#FF1A1A] transition-colors text-sm"
           >
             <Pencil size={14} />
             Edit
@@ -138,7 +138,7 @@ export default function CustomerDetailClient({
           <button
             onClick={handleDelete}
             disabled={deleting}
-            className="inline-flex items-center gap-2 bg-neutral-900 border border-neutral-700 text-red-400 px-4 py-2 rounded font-medium hover:bg-neutral-800 transition-colors text-sm disabled:opacity-50"
+            className="inline-flex items-center gap-2 bg-[#111] border border-[#222] text-red-400 px-4 py-2 rounded font-medium hover:bg-neutral-800 transition-colors text-sm disabled:opacity-50"
           >
             <Trash2 size={14} />
             Delete
@@ -149,14 +149,14 @@ export default function CustomerDetailClient({
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left column - Contact info */}
         <div className="space-y-6">
-          <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-4">
-            <h2 className="text-sm font-semibold text-neutral-400 uppercase tracking-wider mb-3">
+          <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-4">
+            <h2 className="text-sm font-semibold text-[#888] uppercase tracking-wider mb-3">
               Contact
             </h2>
             <div className="space-y-3">
               {customer.phone && (
                 <div className="flex items-center gap-3 text-sm">
-                  <Phone size={16} className="text-neutral-500 flex-shrink-0" />
+                  <Phone size={16} className="text-[#666] flex-shrink-0" />
                   <a href={`tel:${customer.phone}`} className="text-white hover:underline">
                     {customer.phone}
                   </a>
@@ -164,7 +164,7 @@ export default function CustomerDetailClient({
               )}
               {customer.email && (
                 <div className="flex items-center gap-3 text-sm">
-                  <Mail size={16} className="text-neutral-500 flex-shrink-0" />
+                  <Mail size={16} className="text-[#666] flex-shrink-0" />
                   <a href={`mailto:${customer.email}`} className="text-white hover:underline truncate">
                     {customer.email}
                   </a>
@@ -172,7 +172,7 @@ export default function CustomerDetailClient({
               )}
               {customer.instagram && (
                 <div className="flex items-center gap-3 text-sm">
-                  <AtSign size={16} className="text-neutral-500 flex-shrink-0" />
+                  <AtSign size={16} className="text-[#666] flex-shrink-0" />
                   <a
                     href={`https://instagram.com/${customer.instagram.replace('@', '')}`}
                     target="_blank"
@@ -190,15 +190,15 @@ export default function CustomerDetailClient({
           </div>
 
           {customer.tags.length > 0 && (
-            <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-4">
-              <h2 className="text-sm font-semibold text-neutral-400 uppercase tracking-wider mb-3">
+            <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-4">
+              <h2 className="text-sm font-semibold text-[#888] uppercase tracking-wider mb-3">
                 Tags
               </h2>
               <div className="flex flex-wrap gap-1.5">
                 {customer.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-neutral-800 text-neutral-300"
+                    className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-neutral-800 text-[#aaa]"
                   >
                     {tag}
                   </span>
@@ -208,18 +208,18 @@ export default function CustomerDetailClient({
           )}
 
           {customer.notes && (
-            <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-4">
-              <h2 className="text-sm font-semibold text-neutral-400 uppercase tracking-wider mb-3">
+            <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-4">
+              <h2 className="text-sm font-semibold text-[#888] uppercase tracking-wider mb-3">
                 Notes
               </h2>
-              <p className="text-sm text-neutral-300 whitespace-pre-wrap">{customer.notes}</p>
+              <p className="text-sm text-[#aaa] whitespace-pre-wrap">{customer.notes}</p>
             </div>
           )}
 
           {/* Documents */}
           {(customer.licenseFileUrl || customer.insuranceFileUrl || licenseFiles.length > 0 || insuranceFiles.length > 0) && (
-            <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-4">
-              <h2 className="text-sm font-semibold text-neutral-400 uppercase tracking-wider mb-3">
+            <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-4">
+              <h2 className="text-sm font-semibold text-[#888] uppercase tracking-wider mb-3">
                 Documents
               </h2>
               <div className="space-y-2">
@@ -230,7 +230,7 @@ export default function CustomerDetailClient({
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 text-sm text-white hover:underline"
                   >
-                    <FileText size={14} className="text-neutral-500" />
+                    <FileText size={14} className="text-[#666]" />
                     Driver&apos;s License
                   </a>
                 )}
@@ -241,7 +241,7 @@ export default function CustomerDetailClient({
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 text-sm text-white hover:underline"
                   >
-                    <Shield size={14} className="text-neutral-500" />
+                    <Shield size={14} className="text-[#666]" />
                     Insurance
                   </a>
                 )}
@@ -253,7 +253,7 @@ export default function CustomerDetailClient({
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 text-sm text-white hover:underline"
                   >
-                    <FileText size={14} className="text-neutral-500" />
+                    <FileText size={14} className="text-[#666]" />
                     {f.fileName ?? 'License File'}
                   </a>
                 ))}
@@ -265,7 +265,7 @@ export default function CustomerDetailClient({
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 text-sm text-white hover:underline"
                   >
-                    <Shield size={14} className="text-neutral-500" />
+                    <Shield size={14} className="text-[#666]" />
                     {f.fileName ?? 'Insurance File'}
                   </a>
                 ))}
@@ -276,9 +276,9 @@ export default function CustomerDetailClient({
 
         {/* Right column - Rental history */}
         <div className="lg:col-span-2">
-          <div className="bg-neutral-900 border border-neutral-800 rounded-lg">
-            <div className="px-4 py-3 border-b border-neutral-800">
-              <h2 className="text-sm font-semibold text-neutral-400 uppercase tracking-wider">
+          <div className="bg-[#111] border border-[#1a1a1a] rounded-lg">
+            <div className="px-4 py-3 border-b border-[#1a1a1a]">
+              <h2 className="text-sm font-semibold text-[#888] uppercase tracking-wider">
                 Rental History ({customer.bookings.length})
               </h2>
             </div>
@@ -286,7 +286,7 @@ export default function CustomerDetailClient({
             {customer.bookings.length === 0 ? (
               <div className="p-8 text-center">
                 <Calendar size={32} className="mx-auto text-neutral-600 mb-2" />
-                <p className="text-sm text-neutral-500">No bookings yet</p>
+                <p className="text-sm text-[#666]">No bookings yet</p>
               </div>
             ) : (
               <div className="divide-y divide-neutral-800">
@@ -294,27 +294,27 @@ export default function CustomerDetailClient({
                   <Link
                     key={booking.id}
                     href={`/bookings/${booking.id}`}
-                    className="flex items-center gap-4 px-4 py-3 hover:bg-neutral-800/50 transition-colors"
+                    className="flex items-center gap-4 px-4 py-3 hover:bg-[#ffffff05] transition-colors"
                   >
                     <div className="flex-shrink-0">
-                      <Car size={18} className="text-neutral-500" />
+                      <Car size={18} className="text-[#666]" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="text-sm font-medium text-white">
                         {booking.vehicle.displayName}
                       </div>
-                      <div className="text-xs text-neutral-500 mt-0.5">
+                      <div className="text-xs text-[#666] mt-0.5">
                         {formatDateTime(booking.pickupDatetime)} &mdash;{' '}
                         {formatDateTime(booking.dropoffDatetime)}
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs text-neutral-500 capitalize">
+                      <span className="text-xs text-[#666] capitalize">
                         {booking.source.replace(/_/g, ' ').toLowerCase()}
                       </span>
                       <span
                         className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
-                          STATUS_COLORS[booking.status] ?? 'bg-neutral-800 text-neutral-300'
+                          STATUS_COLORS[booking.status] ?? 'bg-neutral-800 text-[#aaa]'
                         }`}
                       >
                         {booking.status}

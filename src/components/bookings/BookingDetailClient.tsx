@@ -115,7 +115,7 @@ export default function BookingDetailClient({
           <h1 className="text-2xl font-bold text-white">Edit Booking</h1>
           <button
             onClick={() => setEditing(false)}
-            className="border border-neutral-700 text-neutral-300 px-4 py-2 rounded font-medium hover:bg-neutral-800 transition-colors text-sm"
+            className="border border-neutral-700 text-[#aaa] px-4 py-2 rounded font-medium hover:bg-neutral-800 transition-colors text-sm"
           >
             Cancel Edit
           </button>
@@ -129,7 +129,7 @@ export default function BookingDetailClient({
     <div>
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
-          <Link href="/bookings" className="text-neutral-400 hover:text-white transition-colors">
+          <Link href="/bookings" className="text-[#888] hover:text-white transition-colors">
             &larr; Bookings
           </Link>
           <h1 className="text-2xl font-bold text-white">Booking Details</h1>
@@ -142,7 +142,7 @@ export default function BookingDetailClient({
         <div className="flex gap-2">
           <button
             onClick={() => setEditing(true)}
-            className="bg-white text-black px-4 py-2 rounded font-medium hover:bg-neutral-200 text-sm transition-colors"
+            className="bg-[#DC0000] text-white px-4 py-2 rounded font-medium hover:bg-[#FF1A1A] text-sm transition-colors"
           >
             Edit
           </button>
@@ -163,15 +163,15 @@ export default function BookingDetailClient({
 
       {/* Status Actions */}
       {(nextStatuses.length > 0 || canCancel) && (
-        <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-4 mb-6">
-          <p className="text-neutral-400 text-sm mb-3">Update Status</p>
+        <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-4 mb-6">
+          <p className="text-[#888] text-sm mb-3">Update Status</p>
           <div className="flex gap-2 flex-wrap">
             {nextStatuses.map((s) => (
               <button
                 key={s}
                 onClick={() => handleStatusChange(s)}
                 disabled={statusLoading}
-                className="bg-white text-black px-4 py-2 rounded font-medium hover:bg-neutral-200 text-sm disabled:opacity-50 transition-colors"
+                className="bg-[#DC0000] text-white px-4 py-2 rounded font-medium hover:bg-[#FF1A1A] text-sm disabled:opacity-50 transition-colors"
               >
                 {statusLoading ? '...' : `Mark as ${s}`}
               </button>
@@ -191,87 +191,87 @@ export default function BookingDetailClient({
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Booking Info */}
-        <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-4">
+        <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-4">
           <h2 className="text-white font-semibold mb-3">Booking Info</h2>
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
-              <span className="text-neutral-400">Source</span>
+              <span className="text-[#888]">Source</span>
               <span className="text-white">{formatSource(booking.source)}</span>
             </div>
             {booking.leadBrand && (
               <div className="flex justify-between">
-                <span className="text-neutral-400">Lead Brand</span>
+                <span className="text-[#888]">Lead Brand</span>
                 <span className="text-white">{formatSource(booking.leadBrand)}</span>
               </div>
             )}
             <div className="flex justify-between">
-              <span className="text-neutral-400">Pickup</span>
+              <span className="text-[#888]">Pickup</span>
               <span className="text-white">{formatDate(booking.pickupDatetime)}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-neutral-400">Dropoff</span>
+              <span className="text-[#888]">Dropoff</span>
               <span className="text-white">{formatDate(booking.dropoffDatetime)}</span>
             </div>
             {booking.pickupLocation && (
               <div className="flex justify-between">
-                <span className="text-neutral-400">Pickup Location</span>
+                <span className="text-[#888]">Pickup Location</span>
                 <span className="text-white">{booking.pickupLocation}</span>
               </div>
             )}
             {booking.dropoffLocation && (
               <div className="flex justify-between">
-                <span className="text-neutral-400">Dropoff Location</span>
+                <span className="text-[#888]">Dropoff Location</span>
                 <span className="text-white">{booking.dropoffLocation}</span>
               </div>
             )}
             {booking.externalReservationId && (
               <div className="flex justify-between">
-                <span className="text-neutral-400">External ID</span>
+                <span className="text-[#888]">External ID</span>
                 <span className="text-white">{booking.externalReservationId}</span>
               </div>
             )}
             {booking.assignedStaff && (
               <div className="flex justify-between">
-                <span className="text-neutral-400">Assigned Staff</span>
+                <span className="text-[#888]">Assigned Staff</span>
                 <span className="text-white">{booking.assignedStaff}</span>
               </div>
             )}
             <div className="flex justify-between">
-              <span className="text-neutral-400">Created By</span>
+              <span className="text-[#888]">Created By</span>
               <span className="text-white">{booking.createdBy.fullName}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-neutral-400">Created</span>
-              <span className="text-neutral-300">{formatDate(booking.createdAt)}</span>
+              <span className="text-[#888]">Created</span>
+              <span className="text-[#aaa]">{formatDate(booking.createdAt)}</span>
             </div>
           </div>
         </div>
 
         {/* Customer Info */}
-        <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-4">
+        <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-4">
           <h2 className="text-white font-semibold mb-3">Customer</h2>
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
-              <span className="text-neutral-400">Name</span>
+              <span className="text-[#888]">Name</span>
               <Link href={`/customers/${booking.customer.id}`} className="text-white hover:underline">
                 {booking.customer.fullName}
               </Link>
             </div>
             {booking.customer.phone && (
               <div className="flex justify-between">
-                <span className="text-neutral-400">Phone</span>
+                <span className="text-[#888]">Phone</span>
                 <span className="text-white">{booking.customer.phone}</span>
               </div>
             )}
             {booking.customer.email && (
               <div className="flex justify-between">
-                <span className="text-neutral-400">Email</span>
+                <span className="text-[#888]">Email</span>
                 <span className="text-white">{booking.customer.email}</span>
               </div>
             )}
             {booking.customer.instagram && (
               <div className="flex justify-between">
-                <span className="text-neutral-400">Instagram</span>
+                <span className="text-[#888]">Instagram</span>
                 <span className="text-white">{booking.customer.instagram}</span>
               </div>
             )}
@@ -279,46 +279,46 @@ export default function BookingDetailClient({
         </div>
 
         {/* Vehicle Info */}
-        <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-4">
+        <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-4">
           <h2 className="text-white font-semibold mb-3">Vehicle</h2>
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
-              <span className="text-neutral-400">Vehicle</span>
+              <span className="text-[#888]">Vehicle</span>
               <Link href={`/fleet/${booking.vehicle.id}`} className="text-white hover:underline">
                 {booking.vehicle.displayName}
               </Link>
             </div>
             <div className="flex justify-between">
-              <span className="text-neutral-400">Vehicle Status</span>
+              <span className="text-[#888]">Vehicle Status</span>
               <span className="text-white">{booking.vehicle.status}</span>
             </div>
           </div>
         </div>
 
         {/* Mileage & Fuel */}
-        <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-4">
+        <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-4">
           <h2 className="text-white font-semibold mb-3">Mileage & Fuel</h2>
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
-              <span className="text-neutral-400">Mileage Out</span>
+              <span className="text-[#888]">Mileage Out</span>
               <span className="text-white">{booking.mileageOut ?? '---'}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-neutral-400">Mileage In</span>
+              <span className="text-[#888]">Mileage In</span>
               <span className="text-white">{booking.mileageIn ?? '---'}</span>
             </div>
             {booking.mileageOut != null && booking.mileageIn != null && (
               <div className="flex justify-between">
-                <span className="text-neutral-400">Miles Driven</span>
+                <span className="text-[#888]">Miles Driven</span>
                 <span className="text-white">{booking.mileageIn - booking.mileageOut}</span>
               </div>
             )}
             <div className="flex justify-between">
-              <span className="text-neutral-400">Fuel Out</span>
+              <span className="text-[#888]">Fuel Out</span>
               <span className="text-white">{booking.fuelLevelOut || '---'}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-neutral-400">Fuel In</span>
+              <span className="text-[#888]">Fuel In</span>
               <span className="text-white">{booking.fuelLevelIn || '---'}</span>
             </div>
           </div>
@@ -327,21 +327,21 @@ export default function BookingDetailClient({
 
       {/* Notes */}
       {booking.notes && (
-        <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-4 mt-6">
+        <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-4 mt-6">
           <h2 className="text-white font-semibold mb-2">Booking Notes</h2>
-          <p className="text-neutral-300 text-sm whitespace-pre-wrap">{booking.notes}</p>
+          <p className="text-[#aaa] text-sm whitespace-pre-wrap">{booking.notes}</p>
         </div>
       )}
 
       {/* Activity Notes */}
       {booking.bookingNotes.length > 0 && (
-        <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-4 mt-6">
+        <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-4 mt-6">
           <h2 className="text-white font-semibold mb-3">Activity Notes</h2>
           <div className="space-y-3">
             {booking.bookingNotes.map((note) => (
-              <div key={note.id} className="border-b border-neutral-800 last:border-0 pb-3 last:pb-0">
-                <p className="text-neutral-300 text-sm whitespace-pre-wrap">{note.body}</p>
-                <p className="text-neutral-500 text-xs mt-1">
+              <div key={note.id} className="border-b border-[#1a1a1a] last:border-0 pb-3 last:pb-0">
+                <p className="text-[#aaa] text-sm whitespace-pre-wrap">{note.body}</p>
+                <p className="text-[#666] text-xs mt-1">
                   {note.createdBy.fullName} &middot; {formatDate(note.createdAt)}
                 </p>
               </div>
@@ -352,7 +352,7 @@ export default function BookingDetailClient({
 
       {/* Files */}
       {booking.files.length > 0 && (
-        <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-4 mt-6">
+        <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-4 mt-6">
           <h2 className="text-white font-semibold mb-3">Files</h2>
           <div className="space-y-2">
             {booking.files.map((file) => (
@@ -361,10 +361,10 @@ export default function BookingDetailClient({
                 href={file.fileUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between border border-neutral-800 rounded p-2 hover:bg-neutral-800/50 transition-colors"
+                className="flex items-center justify-between border border-[#1a1a1a] rounded p-2 hover:bg-[#ffffff05] transition-colors"
               >
                 <span className="text-white text-sm">{file.fileName || 'Unnamed file'}</span>
-                <span className="text-neutral-500 text-xs">{file.category.replace(/_/g, ' ')}</span>
+                <span className="text-[#666] text-xs">{file.category.replace(/_/g, ' ')}</span>
               </a>
             ))}
           </div>

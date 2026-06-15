@@ -105,14 +105,14 @@ export default function BookingsPageClient({
         <h1 className="text-2xl font-bold text-white">Bookings</h1>
         <Link
           href="/bookings/new"
-          className="bg-white text-black px-4 py-2 rounded font-medium hover:bg-neutral-200 transition-colors"
+          className="bg-[#DC0000] text-white px-4 py-2 rounded font-medium hover:bg-[#FF1A1A] transition-colors"
         >
           New Booking
         </Link>
       </div>
 
       {/* Filters */}
-      <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-4 mb-6">
+      <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-4 mb-6">
         <div className="flex flex-wrap gap-3 items-end">
           <form onSubmit={handleSearch} className="flex gap-2">
             <input
@@ -120,11 +120,11 @@ export default function BookingsPageClient({
               placeholder="Search bookings..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="bg-neutral-900 border border-neutral-700 rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-white w-56"
+              className="bg-[#111] border border-[#222] rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-white w-56"
             />
             <button
               type="submit"
-              className="bg-white text-black px-3 py-2 rounded text-sm font-medium hover:bg-neutral-200"
+              className="bg-[#DC0000] text-white px-3 py-2 rounded text-sm font-medium hover:bg-[#FF1A1A]"
             >
               Search
             </button>
@@ -133,7 +133,7 @@ export default function BookingsPageClient({
           <select
             value={filters.status || ''}
             onChange={(e) => handleFilterChange('status', e.target.value)}
-            className="bg-neutral-900 border border-neutral-700 rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-white"
+            className="bg-[#111] border border-[#222] rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-white"
           >
             <option value="">All Statuses</option>
             {STATUS_OPTIONS.map((s) => (
@@ -146,7 +146,7 @@ export default function BookingsPageClient({
           <select
             value={filters.vehicleId || ''}
             onChange={(e) => handleFilterChange('vehicleId', e.target.value)}
-            className="bg-neutral-900 border border-neutral-700 rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-white"
+            className="bg-[#111] border border-[#222] rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-white"
           >
             <option value="">All Vehicles</option>
             {vehicles.map((v) => (
@@ -159,7 +159,7 @@ export default function BookingsPageClient({
           <select
             value={filters.customerId || ''}
             onChange={(e) => handleFilterChange('customerId', e.target.value)}
-            className="bg-neutral-900 border border-neutral-700 rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-white"
+            className="bg-[#111] border border-[#222] rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-white"
           >
             <option value="">All Customers</option>
             {customers.map((c) => (
@@ -172,7 +172,7 @@ export default function BookingsPageClient({
           <select
             value={filters.source || ''}
             onChange={(e) => handleFilterChange('source', e.target.value)}
-            className="bg-neutral-900 border border-neutral-700 rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-white"
+            className="bg-[#111] border border-[#222] rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-white"
           >
             <option value="">All Sources</option>
             {SOURCE_OPTIONS.map((s) => (
@@ -183,29 +183,29 @@ export default function BookingsPageClient({
           </select>
 
           <div className="flex items-center gap-2">
-            <label className="text-neutral-400 text-xs">From</label>
+            <label className="text-[#888] text-xs">From</label>
             <input
               type="date"
               value={filters.dateFrom || ''}
               onChange={(e) => handleFilterChange('dateFrom', e.target.value)}
-              className="bg-neutral-900 border border-neutral-700 rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-white"
+              className="bg-[#111] border border-[#222] rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-white"
             />
           </div>
 
           <div className="flex items-center gap-2">
-            <label className="text-neutral-400 text-xs">To</label>
+            <label className="text-[#888] text-xs">To</label>
             <input
               type="date"
               value={filters.dateTo || ''}
               onChange={(e) => handleFilterChange('dateTo', e.target.value)}
-              className="bg-neutral-900 border border-neutral-700 rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-white"
+              className="bg-[#111] border border-[#222] rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-white"
             />
           </div>
 
           {hasFilters && (
             <button
               onClick={clearFilters}
-              className="text-neutral-400 hover:text-white text-sm underline"
+              className="text-[#888] hover:text-white text-sm underline"
             >
               Clear
             </button>
@@ -215,8 +215,8 @@ export default function BookingsPageClient({
 
       {/* Table */}
       {bookings.length === 0 ? (
-        <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-12 text-center">
-          <p className="text-neutral-400">No bookings found.</p>
+        <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-12 text-center">
+          <p className="text-[#888]">No bookings found.</p>
           {hasFilters && (
             <button
               onClick={clearFilters}
@@ -227,10 +227,10 @@ export default function BookingsPageClient({
           )}
         </div>
       ) : (
-        <div className="bg-neutral-900 border border-neutral-800 rounded-lg overflow-hidden">
+        <div className="bg-[#111] border border-[#1a1a1a] rounded-lg overflow-hidden">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-neutral-800 text-neutral-400 text-left">
+              <tr className="border-b border-[#1a1a1a] text-[#888] text-left">
                 <th className="px-4 py-3 font-medium">Customer</th>
                 <th className="px-4 py-3 font-medium">Vehicle</th>
                 <th className="px-4 py-3 font-medium">Pickup</th>
@@ -244,12 +244,12 @@ export default function BookingsPageClient({
                 <tr
                   key={booking.id}
                   onClick={() => router.push(`/bookings/${booking.id}`)}
-                  className="border-b border-neutral-800 last:border-0 hover:bg-neutral-800/50 cursor-pointer transition-colors"
+                  className="border-b border-[#1a1a1a] last:border-0 hover:bg-[#ffffff05] cursor-pointer transition-colors"
                 >
                   <td className="px-4 py-3 text-white">{booking.customer.fullName}</td>
                   <td className="px-4 py-3 text-white">{booking.vehicle.displayName}</td>
-                  <td className="px-4 py-3 text-neutral-300">{formatDate(booking.pickupDatetime)}</td>
-                  <td className="px-4 py-3 text-neutral-300">{formatDate(booking.dropoffDatetime)}</td>
+                  <td className="px-4 py-3 text-[#aaa]">{formatDate(booking.pickupDatetime)}</td>
+                  <td className="px-4 py-3 text-[#aaa]">{formatDate(booking.dropoffDatetime)}</td>
                   <td className="px-4 py-3">
                     <span
                       className={`${STATUS_COLORS[booking.status] || 'bg-neutral-600'} text-white text-xs px-2 py-1 rounded`}
@@ -257,7 +257,7 @@ export default function BookingsPageClient({
                       {booking.status}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-neutral-400">{formatSource(booking.source)}</td>
+                  <td className="px-4 py-3 text-[#888]">{formatSource(booking.source)}</td>
                 </tr>
               ))}
             </tbody>
@@ -265,7 +265,7 @@ export default function BookingsPageClient({
         </div>
       )}
 
-      <p className="text-neutral-500 text-xs mt-3">
+      <p className="text-[#666] text-xs mt-3">
         {bookings.length} booking{bookings.length !== 1 ? 's' : ''}
       </p>
     </div>

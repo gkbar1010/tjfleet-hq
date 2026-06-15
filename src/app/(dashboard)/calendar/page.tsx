@@ -5,7 +5,7 @@ export default function CalendarPage() {
     <div>
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-white">Calendar</h1>
-        <p className="text-sm text-neutral-400 mt-1">View and manage booking schedule</p>
+        <p className="text-sm text-[#888] mt-1">View and manage booking schedule</p>
       </div>
       <CalendarClient />
     </div>

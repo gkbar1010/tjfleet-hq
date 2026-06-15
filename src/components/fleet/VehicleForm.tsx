@@ -78,8 +78,8 @@ export default function VehicleForm({ vehicle }: { vehicle?: VehicleData }) {
   }
 
   const inputClass =
-    'w-full bg-neutral-900 border border-neutral-700 rounded px-3 py-2 text-white focus:outline-none focus:border-white'
-  const labelClass = 'block text-sm text-neutral-400 mb-1'
+    'w-full bg-[#111] border border-[#222] rounded px-3 py-2 text-white focus:outline-none focus:border-white'
+  const labelClass = 'block text-sm text-[#888] mb-1'
 
   return (
     <form onSubmit={handleSubmit} className="max-w-3xl">
@@ -89,7 +89,7 @@ export default function VehicleForm({ vehicle }: { vehicle?: VehicleData }) {
         </div>
       )}
 
-      <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-6 space-y-6">
+      <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-6 space-y-6">
         <h2 className="text-lg font-semibold text-white">Vehicle Details</h2>
 
         <div>
@@ -209,7 +209,7 @@ export default function VehicleForm({ vehicle }: { vehicle?: VehicleData }) {
         </div>
       </div>
 
-      <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-6 space-y-6 mt-6">
+      <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-6 space-y-6 mt-6">
         <h2 className="text-lg font-semibold text-white">Status</h2>
 
         <div>
@@ -273,7 +273,7 @@ export default function VehicleForm({ vehicle }: { vehicle?: VehicleData }) {
         </div>
       </div>
 
-      <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-6 space-y-6 mt-6">
+      <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-6 space-y-6 mt-6">
         <h2 className="text-lg font-semibold text-white">Photo & Links</h2>
 
         <div>
@@ -285,7 +285,7 @@ export default function VehicleForm({ vehicle }: { vehicle?: VehicleData }) {
             className={inputClass}
             placeholder="https://... (direct image link)"
           />
-          <p className="text-xs text-neutral-500 mt-1">Paste a direct image URL. Shows on fleet list.</p>
+          <p className="text-xs text-[#666] mt-1">Paste a direct image URL. Shows on fleet list.</p>
         </div>
 
         <div className="grid grid-cols-2 gap-4">
@@ -335,7 +335,7 @@ export default function VehicleForm({ vehicle }: { vehicle?: VehicleData }) {
         </div>
       </div>
 
-      <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-6 mt-6">
+      <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-6 mt-6">
         <label className={labelClass}>Notes</label>
         <textarea
           name="notes"
@@ -350,14 +350,14 @@ export default function VehicleForm({ vehicle }: { vehicle?: VehicleData }) {
         <button
           type="submit"
           disabled={saving}
-          className="bg-white text-black px-4 py-2 rounded font-medium hover:bg-neutral-200 disabled:opacity-50 transition-colors"
+          className="bg-[#DC0000] text-white px-4 py-2 rounded font-medium hover:bg-[#FF1A1A] disabled:opacity-50 transition-colors"
         >
           {saving ? 'Saving...' : isEditing ? 'Save Changes' : 'Create Vehicle'}
         </button>
         <button
           type="button"
           onClick={() => router.back()}
-          className="bg-neutral-800 text-white px-4 py-2 rounded hover:bg-neutral-700 transition-colors"
+          className="bg-[#1a1a1a] text-white px-4 py-2 rounded hover:bg-[#222] transition-colors"
         >
           Cancel
         </button>

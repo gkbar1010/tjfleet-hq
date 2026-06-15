@@ -8,13 +8,14 @@ export default function GlobalError({
   reset: () => void
 }) {
   return (
-    <div className="min-h-screen bg-neutral-950 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center px-4">
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#008C45] via-[#F2F2F2] to-[#DC0000]" />
       <div className="text-center">
-        <h1 className="text-2xl font-bold text-white mb-2">Something went wrong</h1>
-        <p className="text-neutral-400 mb-4">{error.message || 'An unexpected error occurred.'}</p>
+        <h1 className="text-2xl font-bold text-white tracking-wide mb-2">Something went wrong</h1>
+        <p className="text-[#666] mb-6">{error.message || 'An unexpected error occurred.'}</p>
         <button
           onClick={reset}
-          className="bg-white text-black px-4 py-2 rounded font-medium hover:bg-neutral-200 transition-colors"
+          className="bg-[#DC0000] text-white px-6 py-2.5 rounded font-medium hover:bg-[#FF1A1A] transition-all tracking-wide uppercase text-sm"
         >
           Try Again
         </button>

@@ -17,7 +17,7 @@ export default async function VehicleDetailPage({
 
   return (
     <div>
-      <div className="flex items-center gap-2 text-sm text-neutral-500 mb-6">
+      <div className="flex items-center gap-2 text-sm text-[#666] mb-6">
         <Link href="/fleet" className="hover:text-white transition-colors">
           Fleet
         </Link>

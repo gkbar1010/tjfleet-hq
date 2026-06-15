@@ -79,7 +79,7 @@ export default function CustomerForm({
       <div className="mb-6">
         <Link
           href={isEditing ? `/customers/${customer.id}` : '/customers'}
-          className="inline-flex items-center gap-1 text-sm text-neutral-400 hover:text-white transition-colors mb-4"
+          className="inline-flex items-center gap-1 text-sm text-[#888] hover:text-white transition-colors mb-4"
         >
           <ArrowLeft size={14} />
           {isEditing ? 'Back to customer' : 'Back to customers'}
@@ -96,11 +96,11 @@ export default function CustomerForm({
       )}
 
       <form onSubmit={handleSubmit} className="max-w-2xl space-y-6">
-        <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-6 space-y-4">
+        <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-6 space-y-4">
           <h2 className="text-lg font-semibold text-white mb-2">Contact Information</h2>
 
           <div>
-            <label htmlFor="fullName" className="block text-sm font-medium text-neutral-300 mb-1">
+            <label htmlFor="fullName" className="block text-sm font-medium text-[#aaa] mb-1">
               Full Name <span className="text-red-400">*</span>
             </label>
             <input
@@ -109,14 +109,14 @@ export default function CustomerForm({
               type="text"
               required
               defaultValue={customer?.fullName ?? ''}
-              className="w-full bg-neutral-900 border border-neutral-700 rounded px-3 py-2 text-white focus:outline-none focus:border-white transition-colors"
+              className="w-full bg-[#111] border border-[#222] rounded px-3 py-2 text-white focus:outline-none focus:border-white transition-colors"
               placeholder="John Doe"
             />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label htmlFor="phone" className="block text-sm font-medium text-neutral-300 mb-1">
+              <label htmlFor="phone" className="block text-sm font-medium text-[#aaa] mb-1">
                 Phone
               </label>
               <input
@@ -124,13 +124,13 @@ export default function CustomerForm({
                 name="phone"
                 type="tel"
                 defaultValue={customer?.phone ?? ''}
-                className="w-full bg-neutral-900 border border-neutral-700 rounded px-3 py-2 text-white focus:outline-none focus:border-white transition-colors"
+                className="w-full bg-[#111] border border-[#222] rounded px-3 py-2 text-white focus:outline-none focus:border-white transition-colors"
                 placeholder="(555) 123-4567"
               />
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-neutral-300 mb-1">
+              <label htmlFor="email" className="block text-sm font-medium text-[#aaa] mb-1">
                 Email
               </label>
               <input
@@ -138,14 +138,14 @@ export default function CustomerForm({
                 name="email"
                 type="email"
                 defaultValue={customer?.email ?? ''}
-                className="w-full bg-neutral-900 border border-neutral-700 rounded px-3 py-2 text-white focus:outline-none focus:border-white transition-colors"
+                className="w-full bg-[#111] border border-[#222] rounded px-3 py-2 text-white focus:outline-none focus:border-white transition-colors"
                 placeholder="john@example.com"
               />
             </div>
           </div>
 
           <div>
-            <label htmlFor="instagram" className="block text-sm font-medium text-neutral-300 mb-1">
+            <label htmlFor="instagram" className="block text-sm font-medium text-[#aaa] mb-1">
               Instagram
             </label>
             <input
@@ -153,13 +153,13 @@ export default function CustomerForm({
               name="instagram"
               type="text"
               defaultValue={customer?.instagram ?? ''}
-              className="w-full bg-neutral-900 border border-neutral-700 rounded px-3 py-2 text-white focus:outline-none focus:border-white transition-colors"
+              className="w-full bg-[#111] border border-[#222] rounded px-3 py-2 text-white focus:outline-none focus:border-white transition-colors"
               placeholder="@johndoe"
             />
           </div>
         </div>
 
-        <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-6">
+        <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-6">
           <h2 className="text-lg font-semibold text-white mb-3">Tags</h2>
           <div className="flex flex-wrap gap-2">
             {AVAILABLE_TAGS.map((tag) => {
@@ -171,8 +171,8 @@ export default function CustomerForm({
                   onClick={() => toggleTag(tag)}
                   className={`inline-flex items-center px-3 py-1.5 rounded text-xs font-medium transition-colors ${
                     isSelected
-                      ? 'bg-white text-black'
-                      : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
+                      ? 'bg-[#DC0000] text-white'
+                      : 'bg-neutral-800 text-[#aaa] hover:bg-[#222]'
                   }`}
                 >
                   {tag}
@@ -182,13 +182,13 @@ export default function CustomerForm({
           </div>
         </div>
 
-        <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-6">
+        <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-6">
           <h2 className="text-lg font-semibold text-white mb-3">Notes</h2>
           <textarea
             name="notes"
             rows={4}
             defaultValue={customer?.notes ?? ''}
-            className="w-full bg-neutral-900 border border-neutral-700 rounded px-3 py-2 text-white focus:outline-none focus:border-white transition-colors resize-none"
+            className="w-full bg-[#111] border border-[#222] rounded px-3 py-2 text-white focus:outline-none focus:border-white transition-colors resize-none"
             placeholder="Any additional notes about this customer..."
           />
         </div>
@@ -197,14 +197,14 @@ export default function CustomerForm({
           <button
             type="submit"
             disabled={loading}
-            className="inline-flex items-center gap-2 bg-white text-black px-6 py-2 rounded font-medium hover:bg-neutral-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="inline-flex items-center gap-2 bg-[#DC0000] text-white px-6 py-2 rounded font-medium hover:bg-[#FF1A1A] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading && <Loader2 size={16} className="animate-spin" />}
             {isEditing ? 'Save Changes' : 'Create Customer'}
           </button>
           <Link
             href={isEditing ? `/customers/${customer.id}` : '/customers'}
-            className="px-4 py-2 text-sm text-neutral-400 hover:text-white transition-colors"
+            className="px-4 py-2 text-sm text-[#888] hover:text-white transition-colors"
           >
             Cancel
           </Link>

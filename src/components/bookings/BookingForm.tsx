@@ -106,8 +106,8 @@ export default function BookingForm({
   }
 
   const inputClass =
-    'bg-neutral-900 border border-neutral-700 rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-white w-full'
-  const labelClass = 'block text-sm text-neutral-400 mb-1'
+    'bg-[#111] border border-[#222] rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-white w-full'
+  const labelClass = 'block text-sm text-[#888] mb-1'
 
   return (
     <form onSubmit={handleSubmit} className="max-w-2xl">
@@ -118,7 +118,7 @@ export default function BookingForm({
         </div>
       )}
 
-      <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-4 space-y-4">
+      <div className="bg-[#111] border border-[#1a1a1a] rounded-lg p-4 space-y-4">
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className={labelClass}>
@@ -325,14 +325,14 @@ export default function BookingForm({
         <button
           type="submit"
           disabled={loading}
-          className="bg-white text-black px-4 py-2 rounded font-medium hover:bg-neutral-200 disabled:opacity-50 transition-colors"
+          className="bg-[#DC0000] text-white px-4 py-2 rounded font-medium hover:bg-[#FF1A1A] disabled:opacity-50 transition-colors"
         >
           {loading ? 'Saving...' : isEdit ? 'Update Booking' : 'Create Booking'}
         </button>
         <button
           type="button"
           onClick={() => router.back()}
-          className="border border-neutral-700 text-neutral-300 px-4 py-2 rounded font-medium hover:bg-neutral-800 transition-colors"
+          className="border border-neutral-700 text-[#aaa] px-4 py-2 rounded font-medium hover:bg-neutral-800 transition-colors"
         >
           Cancel
         </button>
