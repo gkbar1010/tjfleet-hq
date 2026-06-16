@@ -96,7 +96,7 @@ export default function DashboardClient({ data }: { data: DashboardData }) {
       {/* Header */}
       <div>
         <h1 className="text-xl font-bold text-white tracking-[0.15em] uppercase" style={{ fontFamily: 'Orbitron, monospace' }}>
-          Cruscotto
+          Dashboard
         </h1>
         <div className="flex items-center gap-2 mt-2">
           <div className="h-[2px] w-10 bg-[#E10600]" style={{ boxShadow: '0 0 6px rgba(225,6,0,0.4)' }} />

@@ -1,7 +1,7 @@
 'use server'
 
 import { prisma } from '@/lib/prisma'
-import { requireRole } from '@/lib/auth'
+import { requireAuth, requireRole } from '@/lib/auth'
 import { BookingStatus, BookingSource, LeadBrand, VehicleStatus } from '@/generated/prisma/client'
 import { revalidatePath } from 'next/cache'
 
@@ -22,6 +22,7 @@ export async function getBookings(
   dateFrom?: string,
   dateTo?: string
 ) {
+  await requireAuth()
   const where: Record<string, unknown> = {}
 
   if (search) {
@@ -71,6 +72,7 @@ export async function getBookings(
 }
 
 export async function getBooking(id: string) {
+  await requireAuth()
   const booking = await prisma.booking.findUnique({
     where: { id },
     include: {
@@ -296,38 +298,40 @@ export async function updateBookingStatus(id: string, status: BookingStatus) {
   await requireRole('ADMIN', 'SECRETARY')
 
   try {
-    const booking = await prisma.booking.update({
-      where: { id },
-      data: { status },
-    })
+    await prisma.$transaction(async (tx) => {
+      const booking = await tx.booking.update({
+        where: { id },
+        data: { status },
+      })
 
-    // Update vehicle status based on booking status
-    if (status === 'ACTIVE') {
-      await prisma.vehicle.update({
-        where: { id: booking.vehicleId },
-        data: { status: 'BOOKED' as VehicleStatus },
-      })
-    } else if (status === 'COMPLETED') {
-      await prisma.vehicle.update({
-        where: { id: booking.vehicleId },
-        data: { status: 'NEEDS_CLEANING' as VehicleStatus },
-      })
-    } else if (status === 'CANCELLED') {
-      // Only set to AVAILABLE if no other active bookings for this vehicle
-      const otherActive = await prisma.booking.count({
-        where: {
-          vehicleId: booking.vehicleId,
-          id: { not: id },
-          status: { in: ['ACTIVE'] },
-        },
-      })
-      if (otherActive === 0) {
-        await prisma.vehicle.update({
+      // Update vehicle status based on booking status
+      if (status === 'ACTIVE') {
+        await tx.vehicle.update({
           where: { id: booking.vehicleId },
-          data: { status: 'AVAILABLE' as VehicleStatus },
+          data: { status: 'BOOKED' as VehicleStatus },
         })
+      } else if (status === 'COMPLETED') {
+        await tx.vehicle.update({
+          where: { id: booking.vehicleId },
+          data: { status: 'NEEDS_CLEANING' as VehicleStatus },
+        })
+      } else if (status === 'CANCELLED') {
+        // Only set to AVAILABLE if no other active/confirmed/pending bookings for this vehicle
+        const otherActive = await tx.booking.count({
+          where: {
+            vehicleId: booking.vehicleId,
+            id: { not: id },
+            status: { in: ['ACTIVE', 'CONFIRMED', 'PENDING'] },
+          },
+        })
+        if (otherActive === 0) {
+          await tx.vehicle.update({
+            where: { id: booking.vehicleId },
+            data: { status: 'AVAILABLE' as VehicleStatus },
+          })
+        }
       }
-    }
+    })
 
     revalidatePath('/bookings')
     revalidatePath(`/bookings/${id}`)
@@ -360,6 +364,7 @@ export async function deleteBooking(id: string) {
 
 // Helper to get vehicles and customers for form dropdowns
 export async function getBookingFormData() {
+  await requireAuth()
   const [vehicles, customers] = await Promise.all([
     prisma.vehicle.findMany({
       select: { id: true, displayName: true, status: true },

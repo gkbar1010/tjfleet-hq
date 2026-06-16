@@ -1,11 +1,12 @@
 'use server'
 
 import { prisma } from '@/lib/prisma'
-import { requireRole } from '@/lib/auth'
+import { requireAuth, requireRole } from '@/lib/auth'
 import { revalidatePath } from 'next/cache'
 import { AVAILABLE_TAGS, type CustomerTag } from '@/lib/constants'
 
 export async function getCustomers(search?: string, tag?: string) {
+  await requireAuth()
   const where: Record<string, unknown> = {}
 
   if (search) {
@@ -36,6 +37,7 @@ export async function getCustomers(search?: string, tag?: string) {
 }
 
 export async function getCustomer(id: string) {
+  await requireAuth()
   const customer = await prisma.customer.findUnique({
     where: { id },
     include: {
@@ -125,10 +127,23 @@ export async function updateCustomer(id: string, formData: FormData) {
 export async function deleteCustomer(id: string) {
   await requireRole('ADMIN')
 
-  await prisma.customer.delete({
-    where: { id },
-  })
+  try {
+    const bookingCount = await prisma.booking.count({
+      where: { customerId: id },
+    })
 
-  revalidatePath('/customers')
-  return { success: true }
+    if (bookingCount > 0) {
+      return { error: `Cannot delete this customer because they have ${bookingCount} booking(s). Remove or reassign them first.` }
+    }
+
+    await prisma.customer.delete({
+      where: { id },
+    })
+
+    revalidatePath('/customers')
+    return { success: true }
+  } catch (err) {
+    console.error('Delete customer error:', err)
+    return { error: 'Failed to delete customer. Please try again.' }
+  }
 }

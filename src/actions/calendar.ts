@@ -1,8 +1,10 @@
 'use server'
 
 import { prisma } from '@/lib/prisma'
+import { requireAuth } from '@/lib/auth'
 
 export async function getCalendarBookings(start: string, end: string) {
+  await requireAuth()
   const bookings = await prisma.booking.findMany({
     where: {
       OR: [

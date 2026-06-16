@@ -58,7 +58,7 @@ export default function VehicleForm({ vehicle }: { vehicle?: VehicleData }) {
 
     try {
       const formData = new FormData(e.currentTarget)
-      let result: { success: boolean; id: string }
+      let result: { success?: boolean; id?: string; error?: string }
 
       if (isEditing) {
         result = await updateVehicle(vehicle.id, formData)
@@ -66,7 +66,13 @@ export default function VehicleForm({ vehicle }: { vehicle?: VehicleData }) {
         result = await createVehicle(formData)
       }
 
-      if (result.success) {
+      if (result.error) {
+        setError(result.error)
+        setSaving(false)
+        return
+      }
+
+      if (result.success && result.id) {
         router.push(`/fleet/${result.id}`)
         router.refresh()
       }

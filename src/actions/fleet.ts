@@ -1,7 +1,7 @@
 'use server'
 
 import { prisma } from '@/lib/prisma'
-import { requireRole } from '@/lib/auth'
+import { requireAuth, requireRole } from '@/lib/auth'
 import { VehicleStatus, ListingStatus, UserRole } from '@/generated/prisma/client'
 import { revalidatePath } from 'next/cache'
 
@@ -10,6 +10,7 @@ export async function getVehicles(
   status?: string,
   listingStatus?: string
 ) {
+  await requireAuth()
   const conditions: Record<string, unknown>[] = []
 
   if (search) {
@@ -47,6 +48,7 @@ export async function getVehicles(
 }
 
 export async function getVehicle(id: string) {
+  await requireAuth()
   const vehicle = await prisma.vehicle.findUnique({
     where: { id },
     include: {
@@ -69,36 +71,65 @@ export async function getVehicle(id: string) {
 export async function createVehicle(formData: FormData) {
   await requireRole(UserRole.ADMIN, UserRole.SECRETARY)
 
-  const data = extractVehicleData(formData)
+  try {
+    const data = extractVehicleData(formData)
 
-  const vehicle = await prisma.vehicle.create({ data })
+    const vehicle = await prisma.vehicle.create({ data })
 
-  revalidatePath('/fleet')
-  return { success: true, id: vehicle.id }
+    revalidatePath('/fleet')
+    return { success: true, id: vehicle.id }
+  } catch (err) {
+    if (err instanceof Error && err.message === 'Display name is required') {
+      return { error: err.message }
+    }
+    console.error('Create vehicle error:', err)
+    return { error: 'Failed to create vehicle. Please try again.' }
+  }
 }
 
 export async function updateVehicle(id: string, formData: FormData) {
   await requireRole(UserRole.ADMIN, UserRole.SECRETARY)
 
-  const data = extractVehicleData(formData)
+  try {
+    const data = extractVehicleData(formData)
 
-  const vehicle = await prisma.vehicle.update({
-    where: { id },
-    data,
-  })
+    const vehicle = await prisma.vehicle.update({
+      where: { id },
+      data,
+    })
 
-  revalidatePath('/fleet')
-  revalidatePath(`/fleet/${id}`)
-  return { success: true, id: vehicle.id }
+    revalidatePath('/fleet')
+    revalidatePath(`/fleet/${id}`)
+    return { success: true, id: vehicle.id }
+  } catch (err) {
+    if (err instanceof Error && err.message === 'Display name is required') {
+      return { error: err.message }
+    }
+    console.error('Update vehicle error:', err)
+    return { error: 'Failed to update vehicle. Please try again.' }
+  }
 }
 
 export async function deleteVehicle(id: string) {
   await requireRole(UserRole.ADMIN)
 
-  await prisma.vehicle.delete({ where: { id } })
+  try {
+    const bookingCount = await prisma.booking.count({
+      where: { vehicleId: id },
+    })
 
-  revalidatePath('/fleet')
-  return { success: true }
+    if (bookingCount > 0) {
+      return { error: `Cannot delete this vehicle because it has ${bookingCount} booking(s). Remove or reassign them first.` }
+    }
+
+    await prisma.vehicle.delete({ where: { id } })
+
+    revalidatePath('/fleet')
+    return { success: true }
+  } catch (err) {
+    console.error('Delete vehicle error:', err)
+    return { error: 'Failed to delete vehicle. Please try again.' }
+  }
 }
 
 function extractVehicleData(formData: FormData) {

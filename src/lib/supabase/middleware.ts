@@ -2,9 +2,17 @@ import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
 export async function updateSession(request: NextRequest) {
-  // If env vars are missing, let the request through (will fail at page level with proper error)
+  // If env vars are missing, block access (redirect to login) unless already on login/auth
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-    return NextResponse.next({ request })
+    if (
+      request.nextUrl.pathname.startsWith('/login') ||
+      request.nextUrl.pathname.startsWith('/api/auth')
+    ) {
+      return NextResponse.next({ request })
+    }
+    const url = request.nextUrl.clone()
+    url.pathname = '/login'
+    return NextResponse.redirect(url)
   }
 
   let supabaseResponse = NextResponse.next({ request })
@@ -55,7 +63,15 @@ export async function updateSession(request: NextRequest) {
 
     return supabaseResponse
   } catch {
-    // If middleware fails, let the request through
-    return NextResponse.next({ request })
+    // If middleware fails, block access (redirect to login) unless already on login/auth
+    if (
+      request.nextUrl.pathname.startsWith('/login') ||
+      request.nextUrl.pathname.startsWith('/api/auth')
+    ) {
+      return NextResponse.next({ request })
+    }
+    const url = request.nextUrl.clone()
+    url.pathname = '/login'
+    return NextResponse.redirect(url)
   }
 }

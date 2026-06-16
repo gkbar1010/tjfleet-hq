@@ -1,6 +1,7 @@
 'use server'
 
 import { prisma } from '@/lib/prisma'
+import { requireAuth } from '@/lib/auth'
 import { TIMEZONE } from '@/lib/timezone'
 
 function getEasternDayRange(): { start: Date; end: Date } {
@@ -30,6 +31,7 @@ function getEasternDayRange(): { start: Date; end: Date } {
 }
 
 export async function getDashboardData() {
+  await requireAuth()
   const { start: todayStart, end: todayEnd } = getEasternDayRange()
 
   const [
