@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createVehicle, updateVehicle } from '@/actions/fleet'
+import VehiclePhotoUpload from './VehiclePhotoUpload'
 
 type VehicleData = {
   id: string
@@ -48,6 +49,8 @@ export default function VehicleForm({ vehicle }: { vehicle?: VehicleData }) {
   const router = useRouter()
   const [error, setError] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
+  const [thumbnailUrl, setThumbnailUrl] = useState<string>(vehicle?.thumbnailUrl || '')
+  const [photoUploading, setPhotoUploading] = useState(false)
 
   const isEditing = !!vehicle
 
@@ -283,15 +286,14 @@ export default function VehicleForm({ vehicle }: { vehicle?: VehicleData }) {
         <h2 className="text-lg font-semibold text-white">Photo & Links</h2>
 
         <div>
-          <label className={labelClass}>Thumbnail Photo URL</label>
-          <input
-            type="url"
-            name="thumbnailUrl"
-            defaultValue={vehicle?.thumbnailUrl || ''}
-            className={inputClass}
-            placeholder="https://... (direct image link)"
+          <label className={labelClass}>Vehicle Photo</label>
+          <VehiclePhotoUpload
+            currentUrl={vehicle?.thumbnailUrl ?? null}
+            vehicleId={vehicle?.id}
+            onUploaded={(url) => setThumbnailUrl(url)}
+            onUploading={setPhotoUploading}
           />
-          <p className="text-xs text-[#666] mt-1">Paste a direct image URL. Shows on fleet list.</p>
+          <input type="hidden" name="thumbnailUrl" value={thumbnailUrl} />
         </div>
 
         <div className="grid grid-cols-2 gap-4">
@@ -355,10 +357,10 @@ export default function VehicleForm({ vehicle }: { vehicle?: VehicleData }) {
       <div className="flex items-center gap-3 mt-6">
         <button
           type="submit"
-          disabled={saving}
+          disabled={saving || photoUploading}
           className="bg-[#E10600] text-white px-4 py-2 rounded font-medium hover:bg-[#FF2D2D] disabled:opacity-50 transition-colors"
         >
-          {saving ? 'Saving...' : isEditing ? 'Save Changes' : 'Create Vehicle'}
+          {photoUploading ? 'Photo uploading...' : saving ? 'Saving...' : isEditing ? 'Save Changes' : 'Create Vehicle'}
         </button>
         <button
           type="button"
