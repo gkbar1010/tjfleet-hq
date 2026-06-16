@@ -32,6 +32,7 @@ type InquiryItem = {
 type DashboardData = {
   todaysPickups: BookingItem[]
   todaysDropoffs: BookingItem[]
+  inquiryBookings: number
   pendingBookings: number
   confirmedBookings: number
   activeBookings: number
@@ -105,6 +106,13 @@ export default function DashboardClient({ data }: { data: DashboardData }) {
 
       {/* Stat cards */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        <StatCard
+          label="Inquiries"
+          value={data.inquiryBookings}
+          icon={MessageSquare}
+          href="/bookings?status=INQUIRY"
+          accent
+        />
         <StatCard
           label="Pending"
           value={data.pendingBookings}

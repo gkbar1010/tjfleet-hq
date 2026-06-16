@@ -1,16 +1,41 @@
 'use server'
 
 import { prisma } from '@/lib/prisma'
+import { TIMEZONE } from '@/lib/timezone'
+
+function getEasternDayRange(): { start: Date; end: Date } {
+  const now = new Date()
+  // Get today's date in Eastern timezone
+  const formatter = new Intl.DateTimeFormat('en-US', {
+    timeZone: TIMEZONE,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  })
+  const parts = formatter.formatToParts(now)
+  const year = parseInt(parts.find(p => p.type === 'year')!.value)
+  const month = parseInt(parts.find(p => p.type === 'month')!.value)
+  const day = parseInt(parts.find(p => p.type === 'day')!.value)
+
+  // Midnight Eastern = some hour UTC. Use Intl to find the offset.
+  const midnightEastern = new Date(`${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}T00:00:00-05:00`)
+  // Check if DST: create the date and see what offset we actually get
+  const isDST = now.toLocaleString('en-US', { timeZone: TIMEZONE, timeZoneName: 'short' }).includes('EDT')
+  const offset = isDST ? '-04:00' : '-05:00'
+
+  const start = new Date(`${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}T00:00:00${offset}`)
+  const end = new Date(start.getTime() + 24 * 60 * 60 * 1000)
+
+  return { start, end }
+}
 
 export async function getDashboardData() {
-  const now = new Date()
-  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-  const todayEnd = new Date(todayStart)
-  todayEnd.setDate(todayEnd.getDate() + 1)
+  const { start: todayStart, end: todayEnd } = getEasternDayRange()
 
   const [
     todaysPickups,
     todaysDropoffs,
+    inquiryBookings,
     pendingBookings,
     confirmedBookings,
     activeBookings,
@@ -20,11 +45,11 @@ export async function getDashboardData() {
     needsCleaning,
     recentInquiries,
   ] = await Promise.all([
-    // Today's pickups: bookings where pickup is today, status CONFIRMED or ACTIVE
+    // Today's pickups: any non-completed/cancelled booking with pickup today
     prisma.booking.findMany({
       where: {
         pickupDatetime: { gte: todayStart, lt: todayEnd },
-        status: { in: ['CONFIRMED', 'ACTIVE'] },
+        status: { in: ['INQUIRY', 'PENDING', 'CONFIRMED', 'ACTIVE'] },
       },
       include: {
         customer: { select: { fullName: true } },
@@ -33,11 +58,11 @@ export async function getDashboardData() {
       orderBy: { pickupDatetime: 'asc' },
     }),
 
-    // Today's dropoffs: bookings where dropoff is today, status ACTIVE
+    // Today's dropoffs: any active or confirmed booking with dropoff today
     prisma.booking.findMany({
       where: {
         dropoffDatetime: { gte: todayStart, lt: todayEnd },
-        status: 'ACTIVE',
+        status: { in: ['CONFIRMED', 'ACTIVE'] },
       },
       include: {
         customer: { select: { fullName: true } },
@@ -46,7 +71,8 @@ export async function getDashboardData() {
       orderBy: { dropoffDatetime: 'asc' },
     }),
 
-    // Booking counts by status
+    // Booking counts by status — ALL active statuses
+    prisma.booking.count({ where: { status: 'INQUIRY' } }),
     prisma.booking.count({ where: { status: 'PENDING' } }),
     prisma.booking.count({ where: { status: 'CONFIRMED' } }),
     prisma.booking.count({ where: { status: 'ACTIVE' } }),
@@ -84,6 +110,7 @@ export async function getDashboardData() {
       time: b.dropoffDatetime.toISOString(),
       status: b.status,
     })),
+    inquiryBookings,
     pendingBookings,
     confirmedBookings,
     activeBookings,
